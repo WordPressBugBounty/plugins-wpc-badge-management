@@ -1,0 +1,1 @@
+# plugins-wpc-badge-management
