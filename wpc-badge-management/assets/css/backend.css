@@ -355,9 +355,18 @@ body.rtl .wpcbm_active label {
     flex-grow: 1;
 }
 
+.wpcbm_configuration_tr_stripes {
+    background: repeating-linear-gradient(45deg, #ffffff, #ffffff 10px, #fafafa 10px, #fafafa 20px);
+}
+
 .wpcbm_configuration_td .select2-container, .wpcbm_settings .select2-container {
     width: 100% !important;
     max-width: 100% !important;
+}
+
+.wpcbm_configuration_td.wpcbm_configuration_td_flex {
+    display: flex;
+    align-items: center;
 }
 
 #wpc_group_badgediv {
@@ -371,8 +380,8 @@ body.post-type-wpc_product_badge .column-activate {
     text-align: center;
 }
 
-.type-wpc_product_badge .column-activate a.activate,
-.type-wpc_product_badge .column-activate a.deactivate {
+.wpcbm-activate-btn.activate,
+.wpcbm-activate-btn.deactivate {
     position: relative;
     display: inline-block;
     box-sizing: border-box;
@@ -396,18 +405,18 @@ body.post-type-wpc_product_badge .column-activate {
     overflow: hidden;
 }
 
-.type-wpc_product_badge .column-activate a.activate:focus,
-.type-wpc_product_badge .column-activate a.deactivate:focus {
+.wpcbm-activate-btn.activate:focus,
+.wpcbm-activate-btn.deactivate:focus {
     outline: none !important;
     box-shadow: none !important;
 }
 
-.type-wpc_product_badge .column-activate a.activate {
+.wpcbm-activate-btn.activate {
     background: #dddddd !important;
     border-color: #dddddd !important;
 }
 
-.type-wpc_product_badge .column-activate a.activate:after, .type-wpc_product_badge .column-activate a.deactivate:after {
+.wpcbm-activate-btn.activate:after, .wpcbm-activate-btn.deactivate:after {
     position: absolute;
     display: block;
     content: "";
@@ -418,20 +427,20 @@ body.post-type-wpc_product_badge .column-activate {
     transition: all 0.4s ease;
 }
 
-.type-wpc_product_badge .column-activate a.deactivate:after {
+.wpcbm-activate-btn.deactivate:after {
     right: 0;
     left: auto;
     background: #fff;
     transition: all 0.2s ease;
 }
 
-.type-wpc_product_badge .column-activate a.activate:after {
+.wpcbm-activate-btn.activate:after {
     left: 0;
     background: #fff;
     transition: all 0.2s ease;
 }
 
-.type-wpc_product_badge .column-activate a.updating {
+.wpcbm-activate-btn.updating {
     pointer-events: none;
     opacity: 0.5;
 }

@@ -3,21 +3,21 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.0.3
+Version: 3.0.4
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.6
+Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.1
+WC tested up to: 9.3
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.3' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.4' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -1333,6 +1333,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
 				function badge_configuration( $post ) {
 					$post_id          = $post->ID;
+					$active           = get_post_meta( $post_id, 'wpcbm_activate', true ) !== 'off';
 					$position         = ! empty( get_post_meta( $post_id, 'position', true ) ) ? get_post_meta( $post_id, 'position', true ) : 'top-left';
 					$style            = ! empty( get_post_meta( $post_id, 'style', true ) ) ? get_post_meta( $post_id, 'style', true ) : 'image';
 					$text             = ! empty( get_post_meta( $post_id, 'text', true ) ) ? get_post_meta( $post_id, 'text', true ) : 'Hot';
@@ -1362,6 +1363,19 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 					}
 					?>
                     <table class="wpcbm_configuration_table">
+                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_stripes">
+                            <td class="wpcbm_configuration_th">
+								<?php esc_html_e( 'Active', 'wpc-badge-management' ); ?>
+                            </td>
+                            <td class="wpcbm_configuration_td wpcbm_configuration_td_flex">
+								<?php if ( $active ) {
+									echo '<a href="#" class="wpcbm-activate-btn deactivate button button-primary" data-id="' . esc_attr( $post_id ) . '"></a>';
+								} else {
+									echo '<a href="#" class="wpcbm-activate-btn activate button" data-id="' . esc_attr( $post_id ) . '"></a>';
+								} ?>
+                                <span class="description" style="margin-left: 10px"><?php esc_html_e( 'Set this badge as active or inactive sitewide.', 'wpc-badge-management' ); ?></span>
+                            </td>
+                        </tr>
                         <tr class="wpcbm_configuration_tr">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Apply', 'wpc-badge-management' ); ?>

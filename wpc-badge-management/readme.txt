@@ -3,9 +3,9 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, badge, label
 Requires at least: 4.0
-Tested up to: 6.6
-Version: 3.0.3
-Stable tag: 3.0.3
+Tested up to: 6.7
+Version: 3.0.4
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Each global badge can be configured with a group of applicable objects:
 4. Go to WP-admin > Product Badges to add many badges as you want
 
 == Changelog ==
+
+= 3.0.4 =
+* Added: Active button on the badge editor
 
 = 3.0.3 =
 * Added: Shortcode [wpcbm_badge id="xx"] to show individual badge by the ID
