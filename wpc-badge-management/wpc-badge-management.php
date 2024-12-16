@@ -3,7 +3,7 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.0.4
+Version: 3.0.5
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
@@ -12,12 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.3
+WC tested up to: 9.4
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.4' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.5' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -36,9 +38,6 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 	add_action( 'plugins_loaded', 'wpcbm_init', 11 );
 
 	function wpcbm_init() {
-		// load text-domain
-		load_plugin_textdomain( 'wpc-badge-management', false, basename( __DIR__ ) . '/languages/' );
-
 		if ( ! function_exists( 'WC' ) || ! version_compare( WC()->version, '3.0', '>=' ) ) {
 			add_action( 'admin_notices', 'wpcbm_notice_wc' );
 
@@ -163,6 +162,9 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 				}
 
 				function init() {
+					// load text-domain
+					load_plugin_textdomain( 'wpc-badge-management', false, basename( WPCBM_DIR ) . '/languages/' );
+
 					// register post type
 					$labels = [
 						'name'          => _x( 'Badges', 'Post Type General Name', 'wpc-badge-management' ),
@@ -470,6 +472,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 						'text_color',
 						'box_shadow',
 						'apply',
+						'products',
 						'categories',
 						'conditionals',
 						'tags',
@@ -800,6 +803,13 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								}
 							}
 
+							if ( ( $badge['apply'] === 'products' ) && ! empty( $badge['products'] ) ) {
+								if ( in_array( $product_id, $badge['products'] ) ) {
+									$badges[ $key ] = $badge;
+									continue;
+								}
+							}
+
 							if ( ! in_array( $badge['apply'], [
 									'all',
 									'sale',
@@ -808,6 +818,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 									'instock',
 									'outofstock',
 									'backorder',
+									'products',
 									'categories',
 									'tags',
 									'combination'
@@ -1348,6 +1359,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 					$box_shadow       = ! empty( get_post_meta( $post_id, 'box_shadow', true ) ) ? get_post_meta( $post_id, 'box_shadow', true ) : 'rgba(0, 0, 0, 0.1)';
 					$text_color       = ! empty( get_post_meta( $post_id, 'text_color', true ) ) ? get_post_meta( $post_id, 'text_color', true ) : '#ffffff';
 					$apply            = ! empty( get_post_meta( $post_id, 'apply', true ) ) ? get_post_meta( $post_id, 'apply', true ) : '';
+					$products         = ! empty( get_post_meta( $post_id, 'products', true ) ) ? (array) get_post_meta( $post_id, 'products', true ) : [];
 					$categories       = ! empty( get_post_meta( $post_id, 'categories', true ) ) ? get_post_meta( $post_id, 'categories', true ) : '';
 					$tags             = ! empty( get_post_meta( $post_id, 'tags', true ) ) ? get_post_meta( $post_id, 'tags', true ) : '';
 					$terms            = ! empty( get_post_meta( $post_id, 'terms', true ) ) ? get_post_meta( $post_id, 'terms', true ) : [];
@@ -1385,6 +1397,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                     <option value="" <?php selected( $apply, '' ); ?>><?php esc_html_e( 'None', 'wpc-badge-management' ); ?></option>
                                     <option value="combination" <?php selected( $apply, 'combination' ); ?>><?php esc_html_e( 'Combined', 'wpc-badge-management' ); ?></option>
                                     <option value="all" <?php selected( $apply, 'all' ); ?>><?php esc_html_e( 'All products', 'wpc-badge-management' ); ?></option>
+                                    <option value="products" <?php selected( $apply, 'products' ); ?>><?php esc_html_e( 'Selected products', 'wpc-badge-management' ); ?></option>
                                     <option value="sale" <?php selected( $apply, 'sale' ); ?>><?php esc_html_e( 'On sale', 'wpc-badge-management' ); ?></option>
                                     <option value="featured" <?php selected( $apply, 'featured' ); ?>><?php esc_html_e( 'Featured', 'wpc-badge-management' ); ?></option>
                                     <option value="bestselling" <?php selected( $apply, 'bestselling' ); ?>><?php esc_html_e( 'Best selling', 'wpc-badge-management' ); ?></option>
@@ -1423,6 +1436,26 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                 <input type="button" class="wpcbm_add_conditional button button-large" value="<?php esc_attr_e( '+ Add conditional', 'wpc-badge-management' ); ?>"/>
                             </td>
                         </tr>
+                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_products" style="<?php echo esc_attr( $apply === 'products' ? '' : 'display:none;' ); ?>">
+                            <td class="wpcbm_configuration_th">
+								<?php esc_html_e( 'Products', 'wpc-badge-management' ); ?>
+                            </td>
+                            <td class="wpcbm_configuration_td">
+                                <label for="wpcbm_products"><select class="wc-product-search wpcbm-product-search" multiple="multiple" name="wpcbm_products[]" id="wpcbm_products" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-badge-management' ); ?>" data-action="woocommerce_json_search_products">
+										<?php
+										if ( ! empty( $products ) ) {
+											foreach ( $products as $_product_id ) {
+												$_product = wc_get_product( $_product_id );
+
+												if ( $_product ) {
+													echo '<option value="' . esc_attr( $_product_id ) . '" selected>' . wp_kses_post( $_product->get_formatted_name() ) . '</option>';
+												}
+											}
+										}
+										?>
+                                    </select> </label>
+                            </td>
+                        </tr>
                         <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_categories" style="<?php echo esc_attr( $apply === 'categories' ? '' : 'display:none;' ); ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Categories', 'wpc-badge-management' ); ?>
@@ -1448,7 +1481,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								<?php esc_html_e( 'Tags', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_tags"></label><input type="text" value="<?php echo esc_attr( $tags ); ?>" name="wpcbm_tags" id="wpcbm_tags" class="regular-text"/>
+                                <label for="wpcbm_tags"><input type="text" value="<?php echo esc_attr( $tags ); ?>" name="wpcbm_tags" id="wpcbm_tags" class="regular-text"/></label>
                                 <p class="description"><?php esc_attr_e( 'Add some tags, split by a comma...', 'wpc-badge-management' ); ?></p>
                             </td>
                         </tr>
@@ -1460,6 +1493,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 							'instock',
 							'outofstock',
 							'backorder',
+							'products',
 							'categories',
 							'tags',
 							'combination'
@@ -1476,17 +1510,17 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								// for special characters
 								$terms = array_map( 'rawurldecode', $terms );
 								?>
-                                <label for="wpcbm_terms"></label><select class="wpcbm_terms" id="wpcbm_terms" name="wpcbm_terms[]" multiple="multiple" data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $terms ) ); ?>">
-									<?php
-									if ( ! empty( $terms ) ) {
-										foreach ( $terms as $t ) {
-											if ( $term = get_term_by( 'slug', $t, $apply ) ) {
-												echo '<option value="' . esc_attr( $t ) . '" selected>' . esc_html( $term->name ) . '</option>';
+                                <label for="wpcbm_terms"><select class="wpcbm_terms" id="wpcbm_terms" name="wpcbm_terms[]" multiple="multiple" data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $terms ) ); ?>">
+										<?php
+										if ( ! empty( $terms ) ) {
+											foreach ( $terms as $t ) {
+												if ( $term = get_term_by( 'slug', $t, $apply ) ) {
+													echo '<option value="' . esc_attr( $t ) . '" selected>' . esc_html( $term->name ) . '</option>';
+												}
 											}
 										}
-									}
-									?>
-                                </select>
+										?>
+                                    </select> </label>
                             </td>
                         </tr>
                         <tr class="wpcbm_configuration_tr">
@@ -1797,6 +1831,10 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
 					if ( isset( $_POST['wpcbm_image'] ) ) {
 						update_post_meta( $post_id, 'image', sanitize_text_field( $_POST['wpcbm_image'] ) );
+					}
+
+					if ( isset( $_POST['wpcbm_products'] ) ) {
+						update_post_meta( $post_id, 'products', self::sanitize_array( $_POST['wpcbm_products'] ) );
 					}
 
 					if ( isset( $_POST['wpcbm_terms'] ) ) {

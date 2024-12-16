@@ -245,6 +245,7 @@
     var $terms = $('#wpcbm_terms');
 
     $('#wpcbm_configuration_combination').hide();
+    $('#wpcbm_configuration_products').hide();
     $('#wpcbm_configuration_categories').hide();
     $('#wpcbm_configuration_tags').hide();
     $('#wpcbm_configuration_terms').hide();
@@ -257,6 +258,11 @@
 
     if (apply === 'combination') {
       $('#wpcbm_configuration_combination').show();
+      return;
+    }
+
+    if (apply === 'products') {
+      $('#wpcbm_configuration_products').show();
       return;
     }
 
