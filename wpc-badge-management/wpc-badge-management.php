@@ -3,7 +3,7 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.0.5
+Version: 3.0.6
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.4
+WC tested up to: 9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.5' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.6' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -773,7 +773,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
 					foreach ( $this->badges as $key => $badge ) {
 						if ( ! empty( $badge['apply'] ) ) {
-							if ( ( $badge['apply'] === 'all' ) || ( $badge['apply'] === 'featured' && $product->is_featured() ) || ( $badge['apply'] === 'sale' && $product->is_on_sale() ) || ( $badge['apply'] === 'instock' && $product->is_in_stock() ) || ( $badge['apply'] === 'outofstock' && ! $product->is_in_stock() ) || ( $badge['apply'] === 'backorder' && $product->is_on_backorder() ) ) {
+							if ( ( $badge['apply'] === 'all' ) || ( $badge['apply'] === 'featured' && $product->is_featured() ) || ( $badge['apply'] === 'sale' && $product->is_on_sale() ) || ( $badge['apply'] === 'instock' && $product->get_stock_status() === 'instock' ) || ( $badge['apply'] === 'outofstock' && $product->get_stock_status() === 'outofstock' ) || ( $badge['apply'] === 'backorder' && $product->get_stock_status() === 'onbackorder' ) ) {
 								$badges[ $key ] = $badge;
 								continue;
 							}
