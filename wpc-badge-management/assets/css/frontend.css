@@ -36,3 +36,11 @@
 .wpcbm-badges[class*="right"] .wpcbm-badge {
     margin-left: 10px;
 }
+
+.wpcbm-wrapper-single-image {
+    display: none;
+}
+
+.woocommerce-product-gallery .wpcbm-wrapper-single-image {
+    display: block;
+}

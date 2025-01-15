@@ -3,7 +3,7 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.0.6
+Version: 3.0.7
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
@@ -19,7 +19,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.6' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.7' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -136,6 +136,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 					add_action( 'woocommerce_after_shop_loop_item', [ $this, 'render_archive_after_add_to_cart' ], 11 );
 
 					// single page
+					add_action( 'woocommerce_before_single_product_summary', [ $this, 'render_single_image' ], 21 );
 					add_action( 'woocommerce_single_product_summary', [ $this, 'render_single_before_title' ], 4 );
 					add_action( 'woocommerce_single_product_summary', [ $this, 'render_single_after_title' ], 6 );
 					add_action( 'woocommerce_single_product_summary', [ $this, 'render_single_after_rating' ], 11 );
@@ -396,6 +397,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
 					// single
 					$positions_single = [
+						'image'              => esc_html__( 'On image', 'wpc-badge-management' ),
 						'before_title'       => esc_html__( 'Above title', 'wpc-badge-management' ),
 						'after_title'        => esc_html__( 'Under title', 'wpc-badge-management' ),
 						'after_rating'       => esc_html__( 'Under rating', 'wpc-badge-management' ),
@@ -483,7 +485,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 					];
 
 					$position_archive   = self::get_setting( 'position_archive', 'image' );
-					$position_single    = self::get_setting( 'position_single', '4' );
+					$position_single    = self::get_setting( 'position_single', 'before_title' );
 					$position_quickview = self::get_setting( 'position_quickview', 'image' );
 
 					if ( $groups = get_the_terms( $id, 'wpc-badge-group' ) ) {
@@ -518,7 +520,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 				function render_archive_image_start() {
 					global $product;
 
-					echo '<div class="wpcbm-wrapper">';
+					echo '<div class="wpcbm-wrapper wpcbm-wrapper-archive-image">';
 
 					if ( $product ) {
 						$this->render_badges( $product, false, 'archive_image' );
@@ -583,6 +585,18 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 					if ( $product ) {
 						$this->render_badges( $product, true, 'archive_after_add_to_cart' );
 					}
+				}
+
+				function render_single_image() {
+					global $product;
+
+					echo '<div class="wpcbm-wrapper wpcbm-wrapper-single-image">';
+
+					if ( $product ) {
+						$this->render_badges( $product, false, 'single_image' );
+					}
+
+					echo '</div>';
 				}
 
 				function render_single_before_title() {
@@ -2167,6 +2181,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
 
 					wp_enqueue_style( 'hint', WPCBM_URI . 'assets/css/hint.css' );
 					wp_enqueue_style( 'wpcbm-frontend', WPCBM_URI . 'assets/css/frontend.css', [], WPCBM_VERSION );
+					wp_enqueue_script( 'wpcbm-frontend', WPCBM_URI . 'assets/js/frontend.js', [ 'jquery', ], WPCBM_VERSION, true );
 					wp_enqueue_style( 'wpcbm-style', WPCBM_URI . 'assets/css/style.css', [], WPCBM_VERSION );
 					wp_add_inline_style( 'wpcbm-style', $this->inline_css() );
 				}
@@ -2269,7 +2284,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
 							<?php } elseif ( $active_tab === 'settings' ) {
 								$icon_libs          = (array) self::get_setting( 'icon_libs', [] );
 								$position_archive   = self::get_setting( 'position_archive', 'image' );
-								$position_single    = self::get_setting( 'position_single', '4' );
+								$position_single    = self::get_setting( 'position_single', 'before_title' );
 								$position_quickview = self::get_setting( 'position_quickview', 'image' );
 								?>
                                 <form method="post" action="options.php">
@@ -2336,6 +2351,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                             <td>
 												<?php
 												$positions_single = [
+													'image'              => esc_html__( 'On image', 'wpc-badge-management' ),
 													'before_title'       => esc_html__( 'Above title', 'wpc-badge-management' ),
 													'after_title'        => esc_html__( 'Under title', 'wpc-badge-management' ),
 													'after_rating'       => esc_html__( 'Under rating', 'wpc-badge-management' ),
