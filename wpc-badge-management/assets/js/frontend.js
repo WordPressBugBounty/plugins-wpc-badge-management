@@ -3,7 +3,7 @@
 
   $('.woocommerce-product-gallery').
       on('wc-product-gallery-after-init', function() {
-        if ($('.wpcbm-wrapper-single-image').length &&
+        if ($('.wpcbm-wrapper-single-image .wpcbm-badges').length &&
             !$('.woocommerce-product-gallery .wpcbm-wrapper-single-image').length) {
           $('.wpcbm-wrapper-single-image').
               appendTo('.woocommerce-product-gallery');
