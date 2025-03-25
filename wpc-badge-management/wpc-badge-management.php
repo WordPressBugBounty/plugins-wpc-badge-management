@@ -3,7 +3,7 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.0.8
+Version: 3.0.9
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.5
+WC tested up to: 9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.8' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.0.9' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -1399,7 +1399,8 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								} else {
 									echo '<a href="#" class="wpcbm-activate-btn activate button" data-id="' . esc_attr( $post_id ) . '"></a>';
 								} ?>
-                                <span class="description" style="margin-left: 10px"><?php esc_html_e( 'Set this badge as active or inactive sitewide.', 'wpc-badge-management' ); ?></span>
+                                <span class="description"
+                                      style="margin-left: 10px"><?php esc_html_e( 'Set this badge as active or inactive sitewide.', 'wpc-badge-management' ); ?></span>
                             </td>
                         </tr>
                         <tr class="wpcbm_configuration_tr">
@@ -1429,14 +1430,16 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                 <p class="description"><?php esc_html_e( 'Select which products you want to add this badge automatically. If "None" is set, you can still manually choose to add this in the "Badges" tab of each individual product page.', 'wpc-badge-management' ); ?></p>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_combination" style="<?php echo esc_attr( $apply === 'combination' ? '' : 'display:none;' ); ?>">
+                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_combination"
+                            style="<?php echo esc_attr( $apply === 'combination' ? '' : 'display:none;' ); ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Combined', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
                                 <p class="description" style="color: #c9356e;">
                                     Using a combination of conditionals only available on the Premium Version.
-                                    <a href="https://wpclever.net/downloads/wpc-badge-management?utm_source=pro&utm_medium=wpcbm&utm_campaign=wporg" target="_blank">Click here</a> to buy, just $29!
+                                    <a href="https://wpclever.net/downloads/wpc-badge-management?utm_source=pro&utm_medium=wpcbm&utm_campaign=wporg"
+                                       target="_blank">Click here</a> to buy, just $29!
                                 </p>
                                 <div class="wpcbm_conditionals">
 									<?php
@@ -1447,15 +1450,21 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 									}
 									?>
                                 </div>
-                                <input type="button" class="wpcbm_add_conditional button button-large" value="<?php esc_attr_e( '+ Add conditional', 'wpc-badge-management' ); ?>"/>
+                                <input type="button" class="wpcbm_add_conditional button button-large"
+                                       value="<?php esc_attr_e( '+ Add conditional', 'wpc-badge-management' ); ?>"/>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_products" style="<?php echo esc_attr( $apply === 'products' ? '' : 'display:none;' ); ?>">
+                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_products"
+                            style="<?php echo esc_attr( $apply === 'products' ? '' : 'display:none;' ); ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Products', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_products"><select class="wc-product-search wpcbm-product-search" multiple="multiple" name="wpcbm_products[]" id="wpcbm_products" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-badge-management' ); ?>" data-action="woocommerce_json_search_products">
+                                <label for="wpcbm_products"><select class="wc-product-search wpcbm-product-search"
+                                                                    multiple="multiple" name="wpcbm_products[]"
+                                                                    id="wpcbm_products"
+                                                                    data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-badge-management' ); ?>"
+                                                                    data-action="woocommerce_json_search_products">
 										<?php
 										if ( ! empty( $products ) ) {
 											foreach ( $products as $_product_id ) {
@@ -1470,7 +1479,8 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                     </select> </label>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_categories" style="<?php echo esc_attr( $apply === 'categories' ? '' : 'display:none;' ); ?>">
+                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_categories"
+                            style="<?php echo esc_attr( $apply === 'categories' ? '' : 'display:none;' ); ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Categories', 'wpc-badge-management' ); ?>
                             </td>
@@ -1490,28 +1500,31 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								?>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_tags" style="<?php echo esc_attr( $apply === 'tags' ? '' : 'display:none;' ); ?>">
+                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_tags"
+                            style="<?php echo esc_attr( $apply === 'tags' ? '' : 'display:none;' ); ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Tags', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_tags"><input type="text" value="<?php echo esc_attr( $tags ); ?>" name="wpcbm_tags" id="wpcbm_tags" class="regular-text"/></label>
+                                <label for="wpcbm_tags"><input type="text" value="<?php echo esc_attr( $tags ); ?>"
+                                                               name="wpcbm_tags" id="wpcbm_tags" class="regular-text"/></label>
                                 <p class="description"><?php esc_attr_e( 'Add some tags, split by a comma...', 'wpc-badge-management' ); ?></p>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_terms" style="<?php echo esc_attr( ! empty( $apply ) && ! in_array( $apply, [
-							'all',
-							'sale',
-							'featured',
-							'bestselling',
-							'instock',
-							'outofstock',
-							'backorder',
-							'products',
-							'categories',
-							'tags',
-							'combination'
-						] ) ? '' : 'display:none;' ); ?>">
+                        <tr class="wpcbm_configuration_tr" id="wpcbm_configuration_terms"
+                            style="<?php echo esc_attr( ! empty( $apply ) && ! in_array( $apply, [
+							    'all',
+							    'sale',
+							    'featured',
+							    'bestselling',
+							    'instock',
+							    'outofstock',
+							    'backorder',
+							    'products',
+							    'categories',
+							    'tags',
+							    'combination'
+						    ] ) ? '' : 'display:none;' ); ?>">
                             <td class="wpcbm_configuration_th">
                                 <span id="wpcbm_configuration_terms_label"><?php esc_html_e( 'Terms', 'wpc-badge-management' ); ?></span>
                             </td>
@@ -1524,7 +1537,9 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								// for special characters
 								$terms = array_map( 'rawurldecode', $terms );
 								?>
-                                <label for="wpcbm_terms"><select class="wpcbm_terms" id="wpcbm_terms" name="wpcbm_terms[]" multiple="multiple" data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $terms ) ); ?>">
+                                <label for="wpcbm_terms"><select class="wpcbm_terms" id="wpcbm_terms"
+                                                                 name="wpcbm_terms[]" multiple="multiple"
+                                                                 data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $terms ) ); ?>">
 										<?php
 										if ( ! empty( $terms ) ) {
 											foreach ( $terms as $t ) {
@@ -1575,7 +1590,8 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 									?>
                                 </div>
                                 <div class="wpcbm_add_time">
-                                    <a href="#" class="button wpcbm_new_time"><?php esc_html_e( '+ Add time', 'wpc-badge-management' ); ?></a>
+                                    <a href="#"
+                                       class="button wpcbm_new_time"><?php esc_html_e( '+ Add time', 'wpc-badge-management' ); ?></a>
                                 </div>
                             </td>
                         </tr>
@@ -1611,10 +1627,13 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                             </td>
                             <td class="wpcbm_configuration_td">
                                 <div class="wpcbm_styles" id="wpcbm_styles">
-                                    <div class="wpcbm_style_item hint--top" aria-label="<?php esc_attr_e( 'Add Image', 'wpc-badge-management' ); ?>">
+                                    <div class="wpcbm_style_item hint--top"
+                                         aria-label="<?php esc_attr_e( 'Add Image', 'wpc-badge-management' ); ?>">
                                         <div class="inner">
-                                            <input type="radio" id="wpcbm_style_image" name="wpcbm_style" value="image" <?php checked( $style, 'image' ); ?>
-                                                    data-allow="<?php echo esc_attr( htmlspecialchars( json_encode( [ 'allow' => [ 'image' => '' ] ] ), ENT_QUOTES, 'UTF-8' ) ); ?>" data-image="<?php echo esc_attr( $image ); ?>">
+                                            <input type="radio" id="wpcbm_style_image" name="wpcbm_style"
+                                                   value="image" <?php checked( $style, 'image' ); ?>
+                                                   data-allow="<?php echo esc_attr( htmlspecialchars( json_encode( [ 'allow' => [ 'image' => '' ] ] ), ENT_QUOTES, 'UTF-8' ) ); ?>"
+                                                   data-image="<?php echo esc_attr( $image ); ?>">
                                             <label class="wpcbm_style_label" for="wpcbm_style_image">
                                                 <i class="dashicons dashicons-format-image"></i> </label>
                                         </div>
@@ -1623,14 +1642,19 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 									$styles = $this->get_styles();
 
 									foreach ( $styles as $k => $s ) { ?>
-                                        <div class="wpcbm_style_item hint--top" aria-label="<?php echo esc_attr( $s['name'] ?? $k ); ?>">
+                                        <div class="wpcbm_style_item hint--top"
+                                             aria-label="<?php echo esc_attr( $s['name'] ?? $k ); ?>">
                                             <div class="inner">
-                                                <input type="radio" id="wpcbm_style_<?php echo esc_attr( $k ); ?>" name="wpcbm_style" value="<?php echo esc_attr( $k ); ?>" <?php checked( $style, $k ); ?>
-                                                        data-allow="<?php echo esc_attr( htmlspecialchars( json_encode( $s ), ENT_QUOTES, 'UTF-8' ) ); ?>" <?php if ( $style == $k ) {
+                                                <input type="radio" id="wpcbm_style_<?php echo esc_attr( $k ); ?>"
+                                                       name="wpcbm_style"
+                                                       value="<?php echo esc_attr( $k ); ?>" <?php checked( $style, $k ); ?>
+                                                       data-allow="<?php echo esc_attr( htmlspecialchars( json_encode( $s ), ENT_QUOTES, 'UTF-8' ) ); ?>" <?php if ( $style == $k ) {
 													echo 'data-text="' . esc_attr( $text ) . '" data-text_color="' . esc_attr( $text_color ) . '" data-background_color="' . esc_attr( $background_color ) . '" data-border_color="' . esc_attr( $border_color ) . '"';
 												} ?>>
-                                                <label class="wpcbm_style_label" for="wpcbm_style_<?php echo esc_attr( $k ); ?>">
-                                                    <img src="<?php echo esc_url( $s['image'] ); ?>" alt="<?php echo esc_attr( $s['name'] ?? $k ); ?>">
+                                                <label class="wpcbm_style_label"
+                                                       for="wpcbm_style_<?php echo esc_attr( $k ); ?>">
+                                                    <img src="<?php echo esc_url( $s['image'] ); ?>"
+                                                         alt="<?php echo esc_attr( $s['name'] ?? $k ); ?>">
                                                 </label>
                                             </div>
                                         </div>
@@ -1640,52 +1664,74 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                 </div>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_image" id="wpcbm_configuration_badge_image" style="<?php echo ( $style == 'image' ) ? '' : 'display: none;' ?>">
+                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_image"
+                            id="wpcbm_configuration_badge_image"
+                            style="<?php echo ( $style == 'image' ) ? '' : 'display: none;' ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Image', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
 								<?php wp_enqueue_media(); ?>
-                                <input type="hidden" value="<?php echo esc_attr( $image ); ?>" name="wpcbm_image" id="wpcbm_image"/>
-                                <img src="<?php echo esc_url( $image_src ); ?>" alt="Badge Image" class="<?php echo empty( $image_src ) ? 'hidden' : 'has-image'; ?>" id="wpcbm_image_img">
-                                <a href="#" class="button button-primary button-large" id="wpcbm_add_image"><?php esc_html_e( 'Add Image', 'wpc-badge-management' ); ?></a>
-                                <a href="#" class="delete" id="wpcbm_remove_image"><?php esc_html_e( 'Remove Image', 'wpc-badge-management' ); ?></a>
+                                <input type="hidden" value="<?php echo esc_attr( $image ); ?>" name="wpcbm_image"
+                                       id="wpcbm_image"/>
+                                <img src="<?php echo esc_url( $image_src ); ?>" alt="Badge Image"
+                                     class="<?php echo empty( $image_src ) ? 'hidden' : 'has-image'; ?>"
+                                     id="wpcbm_image_img">
+                                <a href="#" class="button button-primary button-large"
+                                   id="wpcbm_add_image"><?php esc_html_e( 'Add Image', 'wpc-badge-management' ); ?></a>
+                                <a href="#" class="delete"
+                                   id="wpcbm_remove_image"><?php esc_html_e( 'Remove Image', 'wpc-badge-management' ); ?></a>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_text" style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
+                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_text"
+                            style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Text', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_text"></label><input type="text" value="<?php echo esc_attr( html_entity_decode( $text ) ); ?>" name="wpcbm_text" id="wpcbm_text" class="regular-text"/>
-                                <span class="description">You can use <a href="#" id="wpcbm_icons_btn">icons</a> or <a href="#" id="wpcbm_shortcodes_btn">shortcodes</a>.</span>
-                                <div class="wpcbm-dialog" id="wpcbm_dialog_icons" style="display: none" title="<?php esc_html_e( 'Icons', 'wpc-badge-management' ); ?>">
+                                <label for="wpcbm_text"></label><input type="text"
+                                                                       value="<?php echo esc_attr( html_entity_decode( $text ) ); ?>"
+                                                                       name="wpcbm_text" id="wpcbm_text"
+                                                                       class="regular-text"/>
+                                <span class="description">You can use <a href="#" id="wpcbm_icons_btn">icons</a> or <a
+                                            href="#" id="wpcbm_shortcodes_btn">shortcodes</a>.</span>
+                                <div class="wpcbm-dialog" id="wpcbm_dialog_icons" style="display: none"
+                                     title="<?php esc_html_e( 'Icons', 'wpc-badge-management' ); ?>">
                                     <p>
                                         After enabling Icon Libraries on the
-                                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=settings' ) ); ?>" target="_blank">settings page</a>, you can use the icon within the text, e.g:
+                                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=settings' ) ); ?>"
+                                           target="_blank">settings page</a>, you can use the icon within the text, e.g:
                                         <code>ABC &lt;i class=&quot;fas fa-check&quot;&gt;&lt;/i&gt; XYZ</code>
                                     </p>
                                 </div>
-                                <div class="wpcbm-dialog" id="wpcbm_dialog_shortcodes" style="display: none" title="<?php esc_html_e( 'Shortcodes', 'wpc-badge-management' ); ?>">
+                                <div class="wpcbm-dialog" id="wpcbm_dialog_shortcodes" style="display: none"
+                                     title="<?php esc_html_e( 'Shortcodes', 'wpc-badge-management' ); ?>">
                                     <p>
-                                        You can use shortcodes within the text, e.g:<br/><code>ABC [your_shortcode] XYZ</code>
+                                        You can use shortcodes within the text, e.g:<br/><code>ABC [your_shortcode]
+                                            XYZ</code>
                                     </p>
 
                                     Try below build-in shortcodes:
 
                                     <ul>
                                         <li>
-                                            <code>[wpcbm_product_data get="stock"]</code> - Display product data, e.g: stock, price, etc.
+                                            <code>[wpcbm_product_data get="stock"]</code> - Display product data, e.g:
+                                            stock, price, etc.
                                         </li>
                                         <li>
-                                            <code>[wpcbm_best_seller top="10" in="product_cat" text="#%s in %s"]</code> - Display the bestseller position in a category, tag, brand, or collection. For example, [wpcbm_best_seller top="10" in="product_cat" text="#%s in %s"]. Allow "in" param: product_cat, product_tag, wpc-brand, wpc-collection.
+                                            <code>[wpcbm_best_seller top="10" in="product_cat" text="#%s in %s"]</code>
+                                            - Display the bestseller position in a category, tag, brand, or collection.
+                                            For example, [wpcbm_best_seller top="10" in="product_cat" text="#%s in %s"].
+                                            Allow "in" param: product_cat, product_tag, wpc-brand, wpc-collection.
                                         </li>
                                         <li><code>[wpcbm_price]</code> - Display product price.</li>
                                         <li>
-                                            <code>[wpcbm_saved_percentage]</code> - Display saved percentage for on-sale product.
+                                            <code>[wpcbm_saved_percentage]</code> - Display saved percentage for on-sale
+                                            product.
                                         </li>
                                         <li>
-                                            <code>[wpcbm_saved_amount]</code> - Display saved amount for on-sale product.
+                                            <code>[wpcbm_saved_amount]</code> - Display saved amount for on-sale
+                                            product.
                                         </li>
                                         <li><code>[wpcbm_tags]</code> - Display product tags.</li>
                                         <li><code>[wpcbm_categories]</code> - Display product categories.</li>
@@ -1693,36 +1739,60 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                 </div>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_text_color" style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
+                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_text_color"
+                            style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Text color', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_text_color"></label><input type="text" value="<?php echo esc_attr( $text_color ); ?>" name="wpcbm_text_color" id="wpcbm_text_color" data-alpha-enabled="true" data-alpha-color-type="rgba"/>
+                                <label for="wpcbm_text_color"></label><input type="text"
+                                                                             value="<?php echo esc_attr( $text_color ); ?>"
+                                                                             name="wpcbm_text_color"
+                                                                             id="wpcbm_text_color"
+                                                                             data-alpha-enabled="true"
+                                                                             data-alpha-color-type="rgba"/>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_background_color" style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
+                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_background_color"
+                            style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Background color', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_background_color"></label><input type="text" value="<?php echo esc_attr( $background_color ); ?>" name="wpcbm_background_color" id="wpcbm_background_color" data-alpha-enabled="true" data-alpha-color-type="rgba"/>
+                                <label for="wpcbm_background_color"></label><input type="text"
+                                                                                   value="<?php echo esc_attr( $background_color ); ?>"
+                                                                                   name="wpcbm_background_color"
+                                                                                   id="wpcbm_background_color"
+                                                                                   data-alpha-enabled="true"
+                                                                                   data-alpha-color-type="rgba"/>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_border_color" style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
+                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_border_color"
+                            style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Border color', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_border_color"></label><input type="text" value="<?php echo esc_attr( $border_color ); ?>" name="wpcbm_border_color" id="wpcbm_border_color" data-alpha-enabled="true" data-alpha-color-type="rgba"/>
+                                <label for="wpcbm_border_color"></label><input type="text"
+                                                                               value="<?php echo esc_attr( $border_color ); ?>"
+                                                                               name="wpcbm_border_color"
+                                                                               id="wpcbm_border_color"
+                                                                               data-alpha-enabled="true"
+                                                                               data-alpha-color-type="rgba"/>
                             </td>
                         </tr>
-                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_box_shadow" style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
+                        <tr class="wpcbm_configuration_tr wpcbm_configuration_tr_allow wpcbm_configuration_tr_box_shadow"
+                            style="<?php echo ( $style !== 'image' ) ? '' : 'display: none;' ?>">
                             <td class="wpcbm_configuration_th">
 								<?php esc_html_e( 'Box shadow', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_box_shadow"></label><input type="text" value="<?php echo esc_attr( $box_shadow ); ?>" name="wpcbm_box_shadow" id="wpcbm_box_shadow" data-alpha-enabled="true" data-alpha-color-type="rgba"/>
+                                <label for="wpcbm_box_shadow"></label><input type="text"
+                                                                             value="<?php echo esc_attr( $box_shadow ); ?>"
+                                                                             name="wpcbm_box_shadow"
+                                                                             id="wpcbm_box_shadow"
+                                                                             data-alpha-enabled="true"
+                                                                             data-alpha-color-type="rgba"/>
                             </td>
                         </tr>
                         <tr class="wpcbm_configuration_tr">
@@ -1730,8 +1800,12 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								<?php esc_html_e( 'Link', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_link"></label><input type="url" value="<?php echo esc_url( $link ); ?>" name="wpcbm_link" id="wpcbm_link" class="regular-text"/>
-                                <label><input type="checkbox" name="wpcbm_link_blank" <?php echo esc_attr( $link_blank ? 'checked' : '' ); ?>/> <?php esc_html_e( 'Open in a new tab.', 'wpc-badge-management' ); ?>
+                                <label for="wpcbm_link"></label><input type="url"
+                                                                       value="<?php echo esc_url( $link ); ?>"
+                                                                       name="wpcbm_link" id="wpcbm_link"
+                                                                       class="regular-text"/>
+                                <label><input type="checkbox"
+                                              name="wpcbm_link_blank" <?php echo esc_attr( $link_blank ? 'checked' : '' ); ?>/> <?php esc_html_e( 'Open in a new tab.', 'wpc-badge-management' ); ?>
                                 </label>
                             </td>
                         </tr>
@@ -1740,7 +1814,10 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								<?php esc_html_e( 'Tooltip', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_tooltip"></label><input type="text" value="<?php echo esc_attr( $tooltip ); ?>" name="wpcbm_tooltip" id="wpcbm_tooltip" class="regular-text"/>
+                                <label for="wpcbm_tooltip"></label><input type="text"
+                                                                          value="<?php echo esc_attr( $tooltip ); ?>"
+                                                                          name="wpcbm_tooltip" id="wpcbm_tooltip"
+                                                                          class="regular-text"/>
                             </td>
                         </tr>
                         <tr class="wpcbm_configuration_tr">
@@ -1748,7 +1825,8 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								<?php esc_html_e( 'Tooltip position', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_tooltip_position"></label><select name="wpcbm_tooltip_position" id="wpcbm_tooltip_position">
+                                <label for="wpcbm_tooltip_position"></label><select name="wpcbm_tooltip_position"
+                                                                                    id="wpcbm_tooltip_position">
                                     <option value="top" <?php selected( $tooltip_position, 'top' ); ?>><?php esc_html_e( 'Top', 'wpc-badge-management' ); ?></option>
                                     <option value="right" <?php selected( $tooltip_position, 'right' ); ?>><?php esc_html_e( 'Right', 'wpc-badge-management' ); ?></option>
                                     <option value="bottom" <?php selected( $tooltip_position, 'bottom' ); ?>><?php esc_html_e( 'Bottom', 'wpc-badge-management' ); ?></option>
@@ -1761,7 +1839,9 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								<?php esc_html_e( 'Order', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_order"></label><input type="number" min="1" max="500" value="<?php echo esc_attr( $order ); ?>" name="wpcbm_order" id="wpcbm_order"/>
+                                <label for="wpcbm_order"></label><input type="number" min="1" max="500"
+                                                                        value="<?php echo esc_attr( $order ); ?>"
+                                                                        name="wpcbm_order" id="wpcbm_order"/>
                             </td>
                         </tr>
                         <tr class="wpcbm_configuration_tr">
@@ -1769,7 +1849,11 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 								<?php esc_html_e( 'Extra CSS classes', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_extra_class"></label><input type="text" value="<?php echo esc_attr( $extra_class ); ?>" name="wpcbm_extra_class" id="wpcbm_extra_class" class="regular-text"/>
+                                <label for="wpcbm_extra_class"></label><input type="text"
+                                                                              value="<?php echo esc_attr( $extra_class ); ?>"
+                                                                              name="wpcbm_extra_class"
+                                                                              id="wpcbm_extra_class"
+                                                                              class="regular-text"/>
                             </td>
                         </tr>
                     </table>
@@ -1921,58 +2005,86 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 					}
 					?>
                     <div class="wpcbm_time">
-                        <input type="hidden" class="wpcbm_time_val" name="wpcbm_timer[<?php echo esc_attr( $time_key ); ?>][val]" value="<?php echo esc_attr( $val ); ?>"/>
+                        <input type="hidden" class="wpcbm_time_val"
+                               name="wpcbm_timer[<?php echo esc_attr( $time_key ); ?>][val]"
+                               value="<?php echo esc_attr( $val ); ?>"/>
                         <span class="wpcbm_time_remove">&times;</span> <span>
 							<label>
 <select class="wpcbm_time_type" name="wpcbm_timer[<?php echo esc_attr( $time_key ); ?>][type]">
     <option value=""><?php esc_html_e( 'Choose the time', 'wpc-badge-management' ); ?></option>
-    <option value="date_on" data-show="date" <?php selected( $type, 'date_on' ); ?>><?php esc_html_e( 'On the date', 'wpc-badge-management' ); ?></option>
-<option value="date_time_before" data-show="date_time" <?php selected( $type, 'date_time_before' ); ?>><?php esc_html_e( 'Before date & time', 'wpc-badge-management' ); ?></option>
-    <option value="date_time_after" data-show="date_time" <?php selected( $type, 'date_time_after' ); ?>><?php esc_html_e( 'After date & time', 'wpc-badge-management' ); ?></option>
-    <option value="date_before" data-show="date" <?php selected( $type, 'date_before' ); ?>><?php esc_html_e( 'Before date', 'wpc-badge-management' ); ?></option>
-    <option value="date_after" data-show="date" <?php selected( $type, 'date_after' ); ?>><?php esc_html_e( 'After date', 'wpc-badge-management' ); ?></option>
-    <option value="date_multi" data-show="date_multi" <?php selected( $type, 'date_multi' ); ?>><?php esc_html_e( 'Multiple dates', 'wpc-badge-management' ); ?></option>
-    <option value="date_range" data-show="date_range" <?php selected( $type, 'date_range' ); ?>><?php esc_html_e( 'Date range', 'wpc-badge-management' ); ?></option>
-    <option value="date_even" data-show="none" <?php selected( $type, 'date_even' ); ?>><?php esc_html_e( 'All even dates', 'wpc-badge-management' ); ?></option>
-    <option value="date_odd" data-show="none" <?php selected( $type, 'date_odd' ); ?>><?php esc_html_e( 'All odd dates', 'wpc-badge-management' ); ?></option>
-    <option value="time_range" data-show="time_range" <?php selected( $type, 'time_range' ); ?>><?php esc_html_e( 'Daily time range', 'wpc-badge-management' ); ?></option>
-<option value="time_before" data-show="time" <?php selected( $type, 'time_before' ); ?>><?php esc_html_e( 'Daily before time', 'wpc-badge-management' ); ?></option>
-    <option value="time_after" data-show="time" <?php selected( $type, 'time_after' ); ?>><?php esc_html_e( 'Daily after time', 'wpc-badge-management' ); ?></option>
-<option value="weekly_every" data-show="weekday" <?php selected( $type, 'weekly_every' ); ?>><?php esc_html_e( 'Weekly on every', 'wpc-badge-management' ); ?></option>
-<option value="week_even" data-show="none" <?php selected( $type, 'week_even' ); ?>><?php esc_html_e( 'All even weeks', 'wpc-badge-management' ); ?></option>
-    <option value="week_odd" data-show="none" <?php selected( $type, 'week_odd' ); ?>><?php esc_html_e( 'All odd weeks', 'wpc-badge-management' ); ?></option>
-<option value="week_no" data-show="weekno" <?php selected( $type, 'week_no' ); ?>><?php esc_html_e( 'On week No.', 'wpc-badge-management' ); ?></option>
-<option value="monthly_every" data-show="monthday" <?php selected( $type, 'monthly_every' ); ?>><?php esc_html_e( 'Monthly on the', 'wpc-badge-management' ); ?></option>
-<option value="month_no" data-show="monthno" <?php selected( $type, 'month_no' ); ?>><?php esc_html_e( 'On month No.', 'wpc-badge-management' ); ?></option>
-<option value="every_day" data-show="none" <?php selected( $type, 'every_day' ); ?>><?php esc_html_e( 'Everyday', 'wpc-badge-management' ); ?></option>
+    <option value="date_on"
+            data-show="date" <?php selected( $type, 'date_on' ); ?>><?php esc_html_e( 'On the date', 'wpc-badge-management' ); ?></option>
+<option value="date_time_before"
+        data-show="date_time" <?php selected( $type, 'date_time_before' ); ?>><?php esc_html_e( 'Before date & time', 'wpc-badge-management' ); ?></option>
+    <option value="date_time_after"
+            data-show="date_time" <?php selected( $type, 'date_time_after' ); ?>><?php esc_html_e( 'After date & time', 'wpc-badge-management' ); ?></option>
+    <option value="date_before"
+            data-show="date" <?php selected( $type, 'date_before' ); ?>><?php esc_html_e( 'Before date', 'wpc-badge-management' ); ?></option>
+    <option value="date_after"
+            data-show="date" <?php selected( $type, 'date_after' ); ?>><?php esc_html_e( 'After date', 'wpc-badge-management' ); ?></option>
+    <option value="date_multi"
+            data-show="date_multi" <?php selected( $type, 'date_multi' ); ?>><?php esc_html_e( 'Multiple dates', 'wpc-badge-management' ); ?></option>
+    <option value="date_range"
+            data-show="date_range" <?php selected( $type, 'date_range' ); ?>><?php esc_html_e( 'Date range', 'wpc-badge-management' ); ?></option>
+    <option value="date_even"
+            data-show="none" <?php selected( $type, 'date_even' ); ?>><?php esc_html_e( 'All even dates', 'wpc-badge-management' ); ?></option>
+    <option value="date_odd"
+            data-show="none" <?php selected( $type, 'date_odd' ); ?>><?php esc_html_e( 'All odd dates', 'wpc-badge-management' ); ?></option>
+    <option value="time_range"
+            data-show="time_range" <?php selected( $type, 'time_range' ); ?>><?php esc_html_e( 'Daily time range', 'wpc-badge-management' ); ?></option>
+<option value="time_before"
+        data-show="time" <?php selected( $type, 'time_before' ); ?>><?php esc_html_e( 'Daily before time', 'wpc-badge-management' ); ?></option>
+    <option value="time_after"
+            data-show="time" <?php selected( $type, 'time_after' ); ?>><?php esc_html_e( 'Daily after time', 'wpc-badge-management' ); ?></option>
+<option value="weekly_every"
+        data-show="weekday" <?php selected( $type, 'weekly_every' ); ?>><?php esc_html_e( 'Weekly on every', 'wpc-badge-management' ); ?></option>
+<option value="week_even"
+        data-show="none" <?php selected( $type, 'week_even' ); ?>><?php esc_html_e( 'All even weeks', 'wpc-badge-management' ); ?></option>
+    <option value="week_odd"
+            data-show="none" <?php selected( $type, 'week_odd' ); ?>><?php esc_html_e( 'All odd weeks', 'wpc-badge-management' ); ?></option>
+<option value="week_no"
+        data-show="weekno" <?php selected( $type, 'week_no' ); ?>><?php esc_html_e( 'On week No.', 'wpc-badge-management' ); ?></option>
+<option value="monthly_every"
+        data-show="monthday" <?php selected( $type, 'monthly_every' ); ?>><?php esc_html_e( 'Monthly on the', 'wpc-badge-management' ); ?></option>
+<option value="month_no"
+        data-show="monthno" <?php selected( $type, 'month_no' ); ?>><?php esc_html_e( 'On month No.', 'wpc-badge-management' ); ?></option>
+<option value="every_day"
+        data-show="none" <?php selected( $type, 'every_day' ); ?>><?php esc_html_e( 'Everyday', 'wpc-badge-management' ); ?></option>
 </select>
 </label>
 						</span> <span class="wpcbm_hide wpcbm_show_if_date_time">
 							<label>
-<input value="<?php echo esc_attr( $date_time ); ?>" class="wpcbm_dpk_date_time wpcbm_date_time_input" type="text" readonly="readonly" style="width: 300px"/>
+<input value="<?php echo esc_attr( $date_time ); ?>" class="wpcbm_dpk_date_time wpcbm_date_time_input" type="text"
+       readonly="readonly" style="width: 300px"/>
 </label>
 						</span> <span class="wpcbm_hide wpcbm_show_if_date">
 							<label>
-<input value="<?php echo esc_attr( $date ); ?>" class="wpcbm_dpk_date wpcbm_date_input" type="text" readonly="readonly" style="width: 300px"/>
+<input value="<?php echo esc_attr( $date ); ?>" class="wpcbm_dpk_date wpcbm_date_input" type="text" readonly="readonly"
+       style="width: 300px"/>
 </label>
 						</span> <span class="wpcbm_hide wpcbm_show_if_date_range">
 							<label>
-<input value="<?php echo esc_attr( $date_range ); ?>" class="wpcbm_dpk_date_range wpcbm_date_input" type="text" readonly="readonly" style="width: 300px"/>
+<input value="<?php echo esc_attr( $date_range ); ?>" class="wpcbm_dpk_date_range wpcbm_date_input" type="text"
+       readonly="readonly" style="width: 300px"/>
 </label>
 						</span> <span class="wpcbm_hide wpcbm_show_if_date_multi">
 							<label>
-<input value="<?php echo esc_attr( $date_multi ); ?>" class="wpcbm_dpk_date_multi wpcbm_date_input" type="text" readonly="readonly" style="width: 300px"/>
+<input value="<?php echo esc_attr( $date_multi ); ?>" class="wpcbm_dpk_date_multi wpcbm_date_input" type="text"
+       readonly="readonly" style="width: 300px"/>
 </label>
 						</span> <span class="wpcbm_hide wpcbm_show_if_time_range">
 							<label>
-<input value="<?php echo esc_attr( $from ); ?>" class="wpcbm_dpk_time wpcbm_time_from wpcbm_time_input" type="text" readonly="readonly" style="width: 300px" placeholder="from"/>
+<input value="<?php echo esc_attr( $from ); ?>" class="wpcbm_dpk_time wpcbm_time_from wpcbm_time_input" type="text"
+       readonly="readonly" style="width: 300px" placeholder="from"/>
 </label>
 							<label>
-<input value="<?php echo esc_attr( $to ); ?>" class="wpcbm_dpk_time wpcbm_time_to wpcbm_time_input" type="text" readonly="readonly" style="width: 300px" placeholder="to"/>
+<input value="<?php echo esc_attr( $to ); ?>" class="wpcbm_dpk_time wpcbm_time_to wpcbm_time_input" type="text"
+       readonly="readonly" style="width: 300px" placeholder="to"/>
 </label>
 						</span> <span class="wpcbm_hide wpcbm_show_if_time">
 							<label>
-<input value="<?php echo esc_attr( $time ); ?>" class="wpcbm_dpk_time wpcbm_time_on wpcbm_time_input" type="text" readonly="readonly" style="width: 300px"/>
+<input value="<?php echo esc_attr( $time ); ?>" class="wpcbm_dpk_time wpcbm_time_on wpcbm_time_input" type="text"
+       readonly="readonly" style="width: 300px"/>
 </label>
 						</span> <span class="wpcbm_hide wpcbm_show_if_weekday">
 							<label>
@@ -2080,7 +2192,9 @@ for ( $i = 1; $i < 13; $i ++ ) {
                     <div id="wpcbm-preview">
                         <div class="wpcbm-wrapper">
                             <div class="wpcbm-badges wpcbm-badges-<?php echo esc_attr( $position ); ?>">
-                                <div style="<?php echo esc_attr( $style !== 'image' ? esc_attr( $css ) : '' ); ?>" class="wpcbm-badge wpcbm-badge-style-<?php echo esc_attr( $style ); ?> hint--<?php echo esc_attr( $tooltip_position ); ?>" aria-label="<?php echo esc_attr( $tooltip ); ?>">
+                                <div style="<?php echo esc_attr( $style !== 'image' ? esc_attr( $css ) : '' ); ?>"
+                                     class="wpcbm-badge wpcbm-badge-style-<?php echo esc_attr( $style ); ?> hint--<?php echo esc_attr( $tooltip_position ); ?>"
+                                     aria-label="<?php echo esc_attr( $tooltip ); ?>">
                                     <div class="wpcbm-badge-inner">
 										<?php
 										if ( $style !== 'image' ) {
@@ -2242,9 +2356,12 @@ for ( $i = 1; $i < 13; $i ++ ) {
                             <p>
 								<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-badge-management' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
                                 <br/>
-                                <a href="<?php echo esc_url( WPCBM_REVIEWS ); ?>" target="_blank"><?php esc_html_e( 'Reviews', 'wpc-badge-management' ); ?></a> |
-                                <a href="<?php echo esc_url( WPCBM_CHANGELOG ); ?>" target="_blank"><?php esc_html_e( 'Changelog', 'wpc-badge-management' ); ?></a> |
-                                <a href="<?php echo esc_url( WPCBM_DISCUSSION ); ?>" target="_blank"><?php esc_html_e( 'Discussion', 'wpc-badge-management' ); ?></a>
+                                <a href="<?php echo esc_url( WPCBM_REVIEWS ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Reviews', 'wpc-badge-management' ); ?></a> |
+                                <a href="<?php echo esc_url( WPCBM_CHANGELOG ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Changelog', 'wpc-badge-management' ); ?></a> |
+                                <a href="<?php echo esc_url( WPCBM_DISCUSSION ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Discussion', 'wpc-badge-management' ); ?></a>
                             </p>
                         </div>
 						<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
@@ -2254,19 +2371,25 @@ for ( $i = 1; $i < 13; $i ++ ) {
 						<?php } ?>
                         <div class="wpclever_settings_page_nav">
                             <h2 class="nav-tab-wrapper">
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=how' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'how' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=how' ) ); ?>"
+                                   class="<?php echo esc_attr( $active_tab === 'how' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'How to use?', 'wpc-badge-management' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=settings' ) ); ?>" class="<?php echo $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=settings' ) ); ?>"
+                                   class="<?php echo $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
 									<?php esc_html_e( 'Settings', 'wpc-badge-management' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpc_product_badge' ) ); ?>" class="nav-tab">
+                                <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpc_product_badge' ) ); ?>"
+                                   class="nav-tab">
 									<?php esc_html_e( 'Global Badges', 'wpc-badge-management' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=premium' ) ); ?>" class="<?php echo $active_tab === 'premium' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>" style="color: #c9356e">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcbm&tab=premium' ) ); ?>"
+                                   class="<?php echo $active_tab === 'premium' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>"
+                                   style="color: #c9356e">
 									<?php esc_html_e( 'Premium Version', 'wpc-badge-management' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>" class="nav-tab">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>"
+                                   class="nav-tab">
 									<?php esc_html_e( 'Essential Kit', 'wpc-badge-management' ); ?>
                                 </a>
                             </h2>
@@ -2297,23 +2420,33 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                                 <ul>
                                                     <li>
                                                         <label>
-                                                            <input type="checkbox" name="wpcbm_settings[icon_libs][]" value="fontawesome" <?php echo esc_attr( in_array( 'fontawesome', $icon_libs ) ? 'checked' : '' ); ?>/>
+                                                            <input type="checkbox" name="wpcbm_settings[icon_libs][]"
+                                                                   value="fontawesome" <?php echo esc_attr( in_array( 'fontawesome', $icon_libs ) ? 'checked' : '' ); ?>/>
                                                         </label>
-                                                        <a href="https://fontawesome.com/v5/search" target="_blank"><?php esc_html_e( 'FontAwesome', 'wpc-badge-management' ); ?></a> Example:
+                                                        <a href="https://fontawesome.com/v5/search"
+                                                           target="_blank"><?php esc_html_e( 'FontAwesome', 'wpc-badge-management' ); ?></a>
+                                                        Example:
                                                         <code>&lt;i class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;</code>
                                                     </li>
                                                     <li>
                                                         <label>
-                                                            <input type="checkbox" name="wpcbm_settings[icon_libs][]" value="feathericon" <?php echo esc_attr( in_array( 'feathericon', $icon_libs ) ? 'checked' : '' ); ?>/>
+                                                            <input type="checkbox" name="wpcbm_settings[icon_libs][]"
+                                                                   value="feathericon" <?php echo esc_attr( in_array( 'feathericon', $icon_libs ) ? 'checked' : '' ); ?>/>
                                                         </label>
-                                                        <a href="https://feathericons.com/" target="_blank"><?php esc_html_e( 'Feather', 'wpc-badge-management' ); ?></a> Example:
-                                                        <code>&lt;i class=&quot;fe fe-activity&quot;&gt;&lt;/i&gt;</code>
+                                                        <a href="https://feathericons.com/"
+                                                           target="_blank"><?php esc_html_e( 'Feather', 'wpc-badge-management' ); ?></a>
+                                                        Example:
+                                                        <code>&lt;i class=&quot;fe
+                                                            fe-activity&quot;&gt;&lt;/i&gt;</code>
                                                     </li>
                                                     <li>
                                                         <label>
-                                                            <input type="checkbox" name="wpcbm_settings[icon_libs][]" value="ionicons" <?php echo esc_attr( in_array( 'ionicons', $icon_libs ) ? 'checked' : '' ); ?>/>
+                                                            <input type="checkbox" name="wpcbm_settings[icon_libs][]"
+                                                                   value="ionicons" <?php echo esc_attr( in_array( 'ionicons', $icon_libs ) ? 'checked' : '' ); ?>/>
                                                         </label>
-                                                        <a href="https://ionic.io/ionicons/v2" target="_blank"><?php esc_html_e( 'Ionicons', 'wpc-badge-management' ); ?></a> Example:
+                                                        <a href="https://ionic.io/ionicons/v2"
+                                                           target="_blank"><?php esc_html_e( 'Ionicons', 'wpc-badge-management' ); ?></a>
+                                                        Example:
                                                         <code>&lt;i class=&quot;ion-gear-b&quot;&gt;&lt;/i&gt;</code>
                                                     </li>
                                                 </ul>
@@ -2401,7 +2534,9 @@ for ( $i = 1; $i < 13; $i ++ ) {
 														}
 														?>
                                                     </select> </label>
-                                                <span class="description"><?php esc_html_e( 'Choose the position to show the badges on the quick view popup.', 'wpc-badge-management' ); ?> It works for <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-quick-view&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Smart Quick View">WPC Smart Quick View</a> only.</span>
+                                                <span class="description"><?php esc_html_e( 'Choose the position to show the badges on the quick view popup.', 'wpc-badge-management' ); ?> It works for <a
+                                                            href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-quick-view&TB_iframe=true&width=800&height=550' ) ); ?>"
+                                                            class="thickbox" title="WPC Smart Quick View">WPC Smart Quick View</a> only.</span>
                                             </td>
                                         </tr>
                                         <tr class="submit">
@@ -2414,7 +2549,8 @@ for ( $i = 1; $i < 13; $i ++ ) {
 							<?php } elseif ( $active_tab === 'premium' ) { ?>
                                 <div class="wpclever_settings_page_content_text">
                                     <p>Get the Premium Version just $29!
-                                        <a href="https://wpclever.net/downloads/wpc-badge-management?utm_source=pro&utm_medium=wpcbm&utm_campaign=wporg" target="_blank">https://wpclever.net/downloads/wpc-badge-management</a>
+                                        <a href="https://wpclever.net/downloads/wpc-badge-management?utm_source=pro&utm_medium=wpcbm&utm_campaign=wporg"
+                                           target="_blank">https://wpclever.net/downloads/wpc-badge-management</a>
                                     </p>
                                     <p><strong>Extra features for Premium Version:</strong></p>
                                     <ul style="margin-bottom: 0">
@@ -2431,13 +2567,17 @@ for ( $i = 1; $i < 13; $i ++ ) {
                             </div>
                             <div class="wpclever_settings_page_suggestion_content">
                                 <div>
-                                    To display custom engaging real-time messages on any wished positions, please install
-                                    <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
+                                    To display custom engaging real-time messages on any wished positions, please
+                                    install
+                                    <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC
+                                        Smart Messages</a> plugin. It's free!
                                 </div>
                                 <div>
                                     Wanna save your precious time working on variations? Try our brand-new free plugin
-                                    <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
-                                    <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
+                                    <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC
+                                        Variation Bulk Editor</a> and
+                                    <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC
+                                        Variation Duplicator</a>.
                                 </div>
                             </div>
                         </div>
@@ -2485,19 +2625,24 @@ for ( $i = 1; $i < 13; $i ++ ) {
                             <div class="wpcbm_td">
                                 <div class="wpcbm_active">
                                     <label>
-                                        <input name="wpcbm_type" type="radio" value="default" <?php echo esc_attr( $type === 'default' ? 'checked' : '' ); ?>/>
+                                        <input name="wpcbm_type" type="radio"
+                                               value="default" <?php echo esc_attr( $type === 'default' ? 'checked' : '' ); ?>/>
 										<?php esc_html_e( 'Default', 'wpc-badge-management' ); ?>
                                     </label> <label>
-                                        <input name="wpcbm_type" type="radio" value="disable" <?php echo esc_attr( $type === 'disable' ? 'checked' : '' ); ?>/>
+                                        <input name="wpcbm_type" type="radio"
+                                               value="disable" <?php echo esc_attr( $type === 'disable' ? 'checked' : '' ); ?>/>
 										<?php esc_html_e( 'Disable', 'wpc-badge-management' ); ?>
                                     </label> <label>
-                                        <input name="wpcbm_type" type="radio" value="overwrite" <?php echo esc_attr( $type === 'overwrite' ? 'checked' : '' ); ?>/>
+                                        <input name="wpcbm_type" type="radio"
+                                               value="overwrite" <?php echo esc_attr( $type === 'overwrite' ? 'checked' : '' ); ?>/>
 										<?php esc_html_e( 'Overwrite', 'wpc-badge-management' ); ?>
                                     </label> <label>
-                                        <input name="wpcbm_type" type="radio" value="prepend" <?php echo esc_attr( $type === 'prepend' ? 'checked' : '' ); ?>/>
+                                        <input name="wpcbm_type" type="radio"
+                                               value="prepend" <?php echo esc_attr( $type === 'prepend' ? 'checked' : '' ); ?>/>
 										<?php esc_html_e( 'Prepend', 'wpc-badge-management' ); ?>
                                     </label> <label>
-                                        <input name="wpcbm_type" type="radio" value="append" <?php echo esc_attr( $type === 'append' ? 'checked' : '' ); ?>/>
+                                        <input name="wpcbm_type" type="radio"
+                                               value="append" <?php echo esc_attr( $type === 'append' ? 'checked' : '' ); ?>/>
 										<?php esc_html_e( 'Append', 'wpc-badge-management' ); ?>
                                     </label>
                                 </div>
@@ -2509,7 +2654,8 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                 <div class="wpcbm_td">
                                     <div style="color: #c9356e;">
                                         Manage badges at a product basis only available on the Premium Version.
-                                        <a href="https://wpclever.net/downloads/wpc-badge-management?utm_source=pro&utm_medium=wpcbm&utm_campaign=wporg" target="_blank">Click here</a> to buy, just $29!
+                                        <a href="https://wpclever.net/downloads/wpc-badge-management?utm_source=pro&utm_medium=wpcbm&utm_campaign=wporg"
+                                           target="_blank">Click here</a> to buy, just $29!
                                     </div>
                                 </div>
                             </div>
@@ -2614,7 +2760,8 @@ for ( $i = 1; $i < 13; $i ++ ) {
 					?>
                     <div class="wpcbm_conditional">
                         <span class="wpcbm_conditional_remove"> &times; </span> <label>
-                            <select class="wpcbm_conditional_apply" name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][apply]">
+                            <select class="wpcbm_conditional_apply"
+                                    name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][apply]">
                                 <option value="sale" <?php selected( $apply, 'sale' ); ?>><?php esc_html_e( 'On sale', 'wpc-badge-management' ); ?></option>
                                 <option value="featured" <?php selected( $apply, 'featured' ); ?>><?php esc_html_e( 'Featured', 'wpc-badge-management' ); ?></option>
                                 <option value="bestselling" <?php selected( $apply, 'bestselling' ); ?>><?php esc_html_e( 'Best selling', 'wpc-badge-management' ); ?></option>
@@ -2633,12 +2780,15 @@ for ( $i = 1; $i < 13; $i ++ ) {
 								}
 								?>
                             </select> </label> <label>
-                            <select class="wpcbm_conditional_compare" name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][compare]">
-                                <optgroup label="<?php esc_attr_e( 'Text', 'wpc-badge-management' ); ?>" class="wpcbm_conditional_compare_terms">
+                            <select class="wpcbm_conditional_compare"
+                                    name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][compare]">
+                                <optgroup label="<?php esc_attr_e( 'Text', 'wpc-badge-management' ); ?>"
+                                          class="wpcbm_conditional_compare_terms">
                                     <option value="is" <?php selected( $compare, 'is' ); ?>><?php esc_html_e( 'including', 'wpc-badge-management' ); ?></option>
                                     <option value="is_not" <?php selected( $compare, 'is_not' ); ?>><?php esc_html_e( 'excluding', 'wpc-badge-management' ); ?></option>
                                 </optgroup>
-                                <optgroup label="<?php esc_attr_e( 'Number', 'wpc-badge-management' ); ?>" class="wpcbm_conditional_compare_price">
+                                <optgroup label="<?php esc_attr_e( 'Number', 'wpc-badge-management' ); ?>"
+                                          class="wpcbm_conditional_compare_price">
                                     <option value="equal" <?php selected( $compare, 'equal' ); ?>><?php esc_html_e( 'equal to', 'wpc-badge-management' ); ?></option>
                                     <option value="not_equal" <?php selected( $compare, 'not_equal' ); ?>><?php esc_html_e( 'not equal to', 'wpc-badge-management' ); ?></option>
                                     <option value="greater" <?php selected( $compare, 'greater' ); ?>><?php esc_html_e( 'greater than', 'wpc-badge-management' ); ?></option>
@@ -2647,10 +2797,15 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                     <option value="less_equal" <?php selected( $compare, 'less_equal' ); ?>><?php esc_html_e( 'less or equal to', 'wpc-badge-management' ); ?></option>
                                 </optgroup>
                             </select> </label> <label>
-                            <input type="number" class="wpcbm_conditional_value" min="0" step="0.0001" data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( $value ); ?>" name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][value]" value="<?php echo esc_attr( $value ); ?>"/>
+                            <input type="number" class="wpcbm_conditional_value" min="0" step="0.0001"
+                                   data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( $value ); ?>"
+                                   name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][value]"
+                                   value="<?php echo esc_attr( $value ); ?>"/>
                         </label> <span class="wpcbm_conditional_select_wrap">
                             <label>
-<select class="wpcbm_conditional_select" data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $select ) ); ?>" name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][select][]" multiple="multiple">
+<select class="wpcbm_conditional_select"
+        data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $select ) ); ?>"
+        name="wpcbm_conditionals[<?php echo esc_attr( $key ); ?>][select][]" multiple="multiple">
     <?php
     if ( count( $select ) ) {
 	    foreach ( $select as $t ) {
