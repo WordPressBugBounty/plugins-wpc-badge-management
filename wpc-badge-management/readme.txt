@@ -3,8 +3,8 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, badge, label
 Tested up to: 6.8
-Version: 3.1.1
-Stable tag: 3.1.1
+Version: 3.1.2
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ WPC Badge Management is a powerful plugin that simplifies badge management in on
 
 == Description ==
 
-**WPC Badge Management** is impressively a versatile, multipurpose, and powerful plugin, which is exceptionally refined for badge management in online shops and WooCommerce sites. Beyond product labeling, it can be a razor sharp sword for ecommerce business owners to win their battle in increasing the conversion rate, improving sales and revenues, securing fast checkout, and boosting the customer retention rate.
+**WPC Badge Management** is an impressively versatile, multipurpose, and powerful plugin, which is exceptionally refined for badge management in online shops and WooCommerce sites. Beyond product labeling, it can be a razor sharp sword for ecommerce business owners to win their battle in increasing the conversion rate, improving sales and revenues, securing fast checkout, and boosting the customer retention rate.
 
-The brand-new plugin is designed for users to manage all kinds of badges and improve the visual appearance on both single product and archive pages with custom images, shapes, icons, colors, texts and even short-codes. Highly configurable and constantly improving, this plugin is indeed not just a mere tool for badge management but a supreme weapon that can bring about game-changing results.
+The brand-new plugin is designed for users to manage all kinds of badges and improve the visual appearance on both single product and archive pages with custom images, shapes, icons, colors, texts, and even short-codes. Highly configurable and constantly improving, this plugin is indeed not just a mere tool for badge management but a supreme weapon that can bring about game-changing results.
 
 = Live demo =
 
@@ -22,7 +22,7 @@ Get a preview of how badges can do wonders for your site: [LIVE DEMO](https://de
 
 = Outstanding Benefits =
 
-- Emphasize the urgency & scarcity of sale events
+- Emphasize the urgency and scarcity of sale events
 - Distinguish between different product lines
 - Act as quality, satisfaction, and safety disclaimers
 - Reduce cart and checkout abandonment rate
@@ -84,10 +84,14 @@ Each global badge can be configured with a group of applicable objects:
 
 1. Please make sure that you installed WooCommerce
 2. Go to plugins in your dashboard and select "Add New"
-3. Search for "WPC Badge Management", Install & Activate it
-4. Go to WP-admin > Product Badges to add many badges as you want
+3. Search for "WPC Badge Management," Install & Activate it
+4. Go to WP-admin > Product Badges to add as many badges as you want
 
 == Changelog ==
+
+= 3.1.2 =
+* Fixed: Minor CSS/JS issues in the backend
+* Updated: Compatible with WP 6.8 & Woo 10.2
 
 = 3.1.1 =
 * Updated: Optimized the code
