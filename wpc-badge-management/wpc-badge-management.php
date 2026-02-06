@@ -3,29 +3,29 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.1.2
+Version: 3.1.4
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.8
+Tested up to: 6.9
 WC requires at least: 3.0
-WC tested up to: 10.2
+WC tested up to: 10.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.2' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.4' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
 ! defined( 'WPCBM_DIR' ) && define( 'WPCBM_DIR', plugin_dir_path( __FILE__ ) );
 ! defined( 'WPCBM_SUPPORT' ) && define( 'WPCBM_SUPPORT', 'https://wpclever.net/support?utm_source=support&utm_medium=wpcbm&utm_campaign=wporg' );
-! defined( 'WPCBM_REVIEWS' ) && define( 'WPCBM_REVIEWS', 'https://wordpress.org/support/plugin/wpc-badge-management/reviews/?filter=5' );
+! defined( 'WPCBM_REVIEWS' ) && define( 'WPCBM_REVIEWS', 'https://wordpress.org/support/plugin/wpc-badge-management/reviews/' );
 ! defined( 'WPCBM_CHANGELOG' ) && define( 'WPCBM_CHANGELOG', 'https://wordpress.org/plugins/wpc-badge-management/#developers' );
 ! defined( 'WPCBM_DISCUSSION' ) && define( 'WPCBM_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-badge-management' );
 ! defined( 'WPC_URI' ) && define( 'WPC_URI', WPCBM_URI );
@@ -474,6 +474,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                             'text_color',
                             'box_shadow',
                             'apply',
+                            'new',
                             'products',
                             'categories',
                             'conditionals',
@@ -824,9 +825,27 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                 }
                             }
 
+                            if ( ( $badge['apply'] === 'new' ) && ! empty( $badge['new'] ) ) {
+                                if ( $created = $product->get_date_created() ) {
+                                    $release = strtotime( wp_date( 'Y-m-d', $created->getOffsetTimestamp() ) );
+                                } else {
+                                    $release = strtotime( current_time( 'Y-m-d' ) );
+                                }
+
+                                $now  = strtotime( current_time( 'Y-m-d' ) );
+                                $time = $now - $release;
+                                $days = absint( $badge['new'] ) * 24 * 60 * 60;
+
+                                if ( $time <= $days ) {
+                                    $badges[ $key ] = $badge;
+                                    continue;
+                                }
+                            }
+
                             if ( ! in_array( $badge['apply'], [
                                             'all',
                                             'sale',
+                                            'new',
                                             'featured',
                                             'bestselling',
                                             'instock',
@@ -1373,6 +1392,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                     $box_shadow       = ! empty( get_post_meta( $post_id, 'box_shadow', true ) ) ? get_post_meta( $post_id, 'box_shadow', true ) : 'rgba(0, 0, 0, 0.1)';
                     $text_color       = ! empty( get_post_meta( $post_id, 'text_color', true ) ) ? get_post_meta( $post_id, 'text_color', true ) : '#ffffff';
                     $apply            = ! empty( get_post_meta( $post_id, 'apply', true ) ) ? get_post_meta( $post_id, 'apply', true ) : '';
+                    $new              = ! empty( get_post_meta( $post_id, 'new', true ) ) ? get_post_meta( $post_id, 'new', true ) : '3';
                     $products         = ! empty( get_post_meta( $post_id, 'products', true ) ) ? (array) get_post_meta( $post_id, 'products', true ) : [];
                     $categories       = ! empty( get_post_meta( $post_id, 'categories', true ) ) ? get_post_meta( $post_id, 'categories', true ) : '';
                     $tags             = ! empty( get_post_meta( $post_id, 'tags', true ) ) ? get_post_meta( $post_id, 'tags', true ) : '';
@@ -1408,25 +1428,31 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                 <?php esc_html_e( 'Apply', 'wpc-badge-management' ); ?>
                             </td>
                             <td class="wpcbm_configuration_td">
-                                <label for="wpcbm_apply"></label><select name="wpcbm_apply" id="wpcbm_apply">
-                                    <option value="" <?php selected( $apply, '' ); ?>><?php esc_html_e( 'None', 'wpc-badge-management' ); ?></option>
-                                    <option value="combination" <?php selected( $apply, 'combination' ); ?>><?php esc_html_e( 'Combined', 'wpc-badge-management' ); ?></option>
-                                    <option value="all" <?php selected( $apply, 'all' ); ?>><?php esc_html_e( 'All products', 'wpc-badge-management' ); ?></option>
-                                    <option value="products" <?php selected( $apply, 'products' ); ?>><?php esc_html_e( 'Selected products', 'wpc-badge-management' ); ?></option>
-                                    <option value="sale" <?php selected( $apply, 'sale' ); ?>><?php esc_html_e( 'On sale', 'wpc-badge-management' ); ?></option>
-                                    <option value="featured" <?php selected( $apply, 'featured' ); ?>><?php esc_html_e( 'Featured', 'wpc-badge-management' ); ?></option>
-                                    <option value="bestselling" <?php selected( $apply, 'bestselling' ); ?>><?php esc_html_e( 'Best selling', 'wpc-badge-management' ); ?></option>
-                                    <option value="instock" <?php selected( $apply, 'instock' ); ?>><?php esc_html_e( 'In stock', 'wpc-badge-management' ); ?></option>
-                                    <option value="outofstock" <?php selected( $apply, 'outofstock' ); ?>><?php esc_html_e( 'Out of stock', 'wpc-badge-management' ); ?></option>
-                                    <option value="backorder" <?php selected( $apply, 'backorder' ); ?>><?php esc_html_e( 'On backorder', 'wpc-badge-management' ); ?></option>
-                                    <?php
-                                    $taxonomies = get_object_taxonomies( 'product', 'objects' ); //$taxonomies = get_taxonomies( [ 'object_type' => [ 'product' ] ], 'objects' );
+                                <label for="wpcbm_apply"><select name="wpcbm_apply" id="wpcbm_apply">
+                                        <option value="" <?php selected( $apply, '' ); ?>><?php esc_html_e( 'None', 'wpc-badge-management' ); ?></option>
+                                        <option value="combination" <?php selected( $apply, 'combination' ); ?>><?php esc_html_e( 'Combined', 'wpc-badge-management' ); ?></option>
+                                        <option value="all" <?php selected( $apply, 'all' ); ?>><?php esc_html_e( 'All products', 'wpc-badge-management' ); ?></option>
+                                        <option value="products" <?php selected( $apply, 'products' ); ?>><?php esc_html_e( 'Selected products', 'wpc-badge-management' ); ?></option>
+                                        <option value="sale" <?php selected( $apply, 'sale' ); ?>><?php esc_html_e( 'On sale', 'wpc-badge-management' ); ?></option>
+                                        <option value="new" <?php selected( $apply, 'new' ); ?>><?php esc_html_e( 'New release (days)', 'wpc-badge-management' ); ?></option>
+                                        <option value="featured" <?php selected( $apply, 'featured' ); ?>><?php esc_html_e( 'Featured', 'wpc-badge-management' ); ?></option>
+                                        <option value="bestselling" <?php selected( $apply, 'bestselling' ); ?>><?php esc_html_e( 'Best selling', 'wpc-badge-management' ); ?></option>
+                                        <option value="instock" <?php selected( $apply, 'instock' ); ?>><?php esc_html_e( 'In stock', 'wpc-badge-management' ); ?></option>
+                                        <option value="outofstock" <?php selected( $apply, 'outofstock' ); ?>><?php esc_html_e( 'Out of stock', 'wpc-badge-management' ); ?></option>
+                                        <option value="backorder" <?php selected( $apply, 'backorder' ); ?>><?php esc_html_e( 'On backorder', 'wpc-badge-management' ); ?></option>
+                                        <?php
+                                        $taxonomies = get_object_taxonomies( 'product', 'objects' ); //$taxonomies = get_taxonomies( [ 'object_type' => [ 'product' ] ], 'objects' );
 
-                                    foreach ( $taxonomies as $taxonomy ) {
-                                        echo '<option value="' . esc_attr( $taxonomy->name ) . '" ' . ( $apply === $taxonomy->name ? 'selected' : '' ) . '>' . esc_html( $taxonomy->label ) . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                        foreach ( $taxonomies as $taxonomy ) {
+                                            echo '<option value="' . esc_attr( $taxonomy->name ) . '" ' . ( $apply === $taxonomy->name ? 'selected' : '' ) . '>' . esc_html( $taxonomy->label ) . '</option>';
+                                        }
+                                        ?>
+                                    </select></label>
+                                <span id="wpcbm_configuration_new"
+                                      style="<?php echo esc_attr( $apply === 'new' ? '' : 'display:none;' ); ?>">
+                                    <input type="number" name="wpcbm_new" min="1" step="1"
+                                           value="<?php echo esc_attr( $new ); ?>"/>
+                                </span>
                                 <p class="description"><?php esc_html_e( 'Select which products you want to add this badge automatically. If "None" is set, you can still manually choose to add this in the "Badges" tab of each individual product page.', 'wpc-badge-management' ); ?></p>
                             </td>
                         </tr>
@@ -1515,6 +1541,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                             style="<?php echo esc_attr( ! empty( $apply ) && ! in_array( $apply, [
                                     'all',
                                     'sale',
+                                    'new',
                                     'featured',
                                     'bestselling',
                                     'instock',
@@ -1917,6 +1944,10 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
                     if ( isset( $_POST['wpcbm_apply'] ) ) {
                         update_post_meta( $post_id, 'apply', sanitize_text_field( $_POST['wpcbm_apply'] ) );
+                    }
+
+                    if ( isset( $_POST['wpcbm_new'] ) ) {
+                        update_post_meta( $post_id, 'new', sanitize_text_field( $_POST['wpcbm_new'] ) );
                     }
 
                     if ( isset( $_POST['wpcbm_categories'] ) ) {
@@ -2336,7 +2367,10 @@ for ( $i = 1; $i < 13; $i ++ ) {
 
                 function register_settings() {
                     // settings
-                    register_setting( 'wpcbm_settings', 'wpcbm_settings' );
+                    register_setting( 'wpcbm_settings', 'wpcbm_settings', [
+                            'type'              => 'array',
+                            'sanitize_callback' => [ $this, 'sanitize_array' ],
+                    ] );
                 }
 
                 function admin_menu() {
@@ -2551,6 +2585,10 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                         <tr class="submit">
                                             <th colspan="2">
                                                 <?php settings_fields( 'wpcbm_settings' ); ?><?php submit_button(); ?>
+                                                <a style="display: none;" class="wpclever_export"
+                                                   data-key="wpcbm_settings"
+                                                   data-name="settings"
+                                                   href="#"><?php esc_html_e( 'import / export', 'wpc-badge-management' ); ?></a>
                                             </th>
                                         </tr>
                                     </table>
