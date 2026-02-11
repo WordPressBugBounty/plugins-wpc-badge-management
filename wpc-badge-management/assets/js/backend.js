@@ -20,9 +20,6 @@
 
         // init roles
         $('.wpcbm_roles').selectWoo();
-
-        // hide old wpc_group_badge
-        $('a[href="edit-tags.php?taxonomy=wpc_group_badge&post_type=wpc_product_badge"]').closest('li').remove();
     });
 
     $(document).on('change', '.wpcbm_time_type', function () {

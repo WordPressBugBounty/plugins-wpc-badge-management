@@ -369,10 +369,6 @@ body.rtl .wpcbm_active label {
     align-items: center;
 }
 
-#wpc_group_badgediv {
-    display: none !important;
-}
-
 /* Activate */
 
 body.post-type-wpc_product_badge .column-activate {

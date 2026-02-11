@@ -3,7 +3,7 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.1.4
+Version: 3.1.5
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
@@ -19,7 +19,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.4' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.5' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -200,30 +200,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                     register_post_type( 'wpc_product_badge', $args );
 
                     // register taxonomy
-                    $labels = [
-                            'name'              => _x( 'Groups (deprecated)', 'taxonomy general name', 'wpc-badge-management' ),
-                            'singular_name'     => _x( 'Group (deprecated)', 'taxonomy singular name', 'wpc-badge-management' ),
-                            'search_items'      => esc_html__( 'Search Groups', 'wpc-badge-management' ),
-                            'all_items'         => esc_html__( 'All Groups', 'wpc-badge-management' ),
-                            'parent_item'       => esc_html__( 'Parent Group', 'wpc-badge-management' ),
-                            'parent_item_colon' => esc_html__( 'Parent Group:', 'wpc-badge-management' ),
-                            'edit_item'         => esc_html__( 'Edit Group', 'wpc-badge-management' ),
-                            'update_item'       => esc_html__( 'Update Group', 'wpc-badge-management' ),
-                            'add_new_item'      => esc_html__( 'Add New Group', 'wpc-badge-management' ),
-                            'new_item_name'     => esc_html__( 'New Group Name', 'wpc-badge-management' ),
-                            'menu_name'         => esc_html__( 'Group (deprecated)', 'wpc-badge-management' ),
-                    ];
-
-                    $args = [
-                            'hierarchical'      => false,
-                            'labels'            => $labels,
-                            'public'            => false,
-                            'show_ui'           => false,
-                            'show_admin_column' => false,
-                            'query_var'         => true,
-                    ];
-
-                    $labels_new = [
+                    $labels_tax = [
                             'name'              => _x( 'Groups', 'taxonomy general name', 'wpc-badge-management' ),
                             'singular_name'     => _x( 'Group', 'taxonomy singular name', 'wpc-badge-management' ),
                             'search_items'      => esc_html__( 'Search Groups', 'wpc-badge-management' ),
@@ -237,9 +214,9 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                             'menu_name'         => esc_html__( 'Group', 'wpc-badge-management' ),
                     ];
 
-                    $args_new = [
+                    $args_tax = [
                             'hierarchical'      => true,
-                            'labels'            => $labels_new,
+                            'labels'            => $labels_tax,
                             'public'            => false,
                             'show_ui'           => true,
                             'show_admin_column' => true,
@@ -247,8 +224,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                             'meta_box_cb'       => [ $this, 'group_meta_box' ],
                     ];
 
-                    register_taxonomy( 'wpc_group_badge', [ 'wpc_product_badge' ], $args );
-                    register_taxonomy( 'wpc-badge-group', [ 'wpc_product_badge' ], $args_new );
+                    register_taxonomy( 'wpc-badge-group', [ 'wpc_product_badge' ], $args_tax );
 
                     // shortcode
                     add_shortcode( 'wpcbm', [ $this, 'shortcode_badges' ] );
@@ -873,6 +849,18 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                     }
                                 }
 
+                                if ( str_starts_with( $badge['apply'], 'pa_' ) && is_a( $product, 'WC_Product_Variation' ) ) {
+                                    // check variation attribute
+                                    $apply = $badge['apply'];
+                                    $attrs = $product->get_attributes();
+
+                                    if ( ! empty( $attrs[ $apply ] ) ) {
+                                        if ( ( $term = get_term_by( 'slug', $attrs[ $apply ], $apply ) ) && in_array( $term->term_id, $term_ids ) ) {
+                                            $badges[ $key ] = $badge;
+                                        }
+                                    }
+                                }
+
                                 if ( ! empty( $term_ids ) && ( has_term( $term_ids, $badge['apply'], $product_id ) || apply_filters( 'wpcbm_has_term', false, $term_ids, $badge['apply'], $product_id ) ) ) {
                                     $badges[ $key ] = $badge;
                                 }
@@ -978,7 +966,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                         if ( is_array( $badges_pos ) && count( $badges_pos ) > 0 ) {
                             foreach ( $badges_pos as $pos => $badges ) {
                                 $badges_class = 'wpcbm-badges wpcbm-badges-' . esc_attr( $pos ) . ' ' . ( ! empty( $position ) ? 'wpcbm-badges-' . esc_attr( $position ) : '' );
-                                echo '<div class="' . esc_attr( apply_filters( 'wpcbm_badges_class', $badges_class, $pos, $badges ) ) . '">';
+                                echo '<div class="' . esc_attr( apply_filters( 'wpcbm_badges_class', $badges_class, $pos, $badges, $product ) ) . '">';
 
                                 if ( is_array( $badges ) && count( $badges ) > 0 ) {
                                     foreach ( $badges as $badge ) {
@@ -991,7 +979,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                         }
                     } else {
                         $badges_class = 'wpcbm-badges wpcbm-badges-flat ' . ( ! empty( $position ) ? 'wpcbm-badges-' . esc_attr( $position ) : '' );
-                        echo '<div class="' . esc_attr( apply_filters( 'wpcbm_badges_class', $badges_class, 'flat', $badges ) ) . '">';
+                        echo '<div class="' . esc_attr( apply_filters( 'wpcbm_badges_class', $badges_class, 'flat', $badges, $product ) ) . '">';
 
                         if ( is_array( $badges ) && count( $badges ) > 0 ) {
                             foreach ( $badges as $badge ) {
