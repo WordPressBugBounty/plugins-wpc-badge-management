@@ -3,7 +3,7 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.1.5
+Version: 3.1.6
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.9
 WC requires at least: 3.0
-WC tested up to: 10.4
+WC tested up to: 10.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.5' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.6' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -30,6 +30,7 @@ defined( 'ABSPATH' ) || exit;
 ! defined( 'WPCBM_DISCUSSION' ) && define( 'WPCBM_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-badge-management' );
 ! defined( 'WPC_URI' ) && define( 'WPC_URI', WPCBM_URI );
 
+include 'includes/log/wpc-log.php';
 include 'includes/dashboard/wpc-dashboard.php';
 include 'includes/kit/wpc-kit.php';
 include 'includes/hpos.php';
@@ -82,6 +83,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
                     // settings page
                     add_action( 'admin_init', [ $this, 'register_settings' ] );
+                    add_filter( 'pre_update_option', [ $this, 'last_saved' ], 10, 2 );
                     add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
                     // settings link
@@ -2361,6 +2363,15 @@ for ( $i = 1; $i < 13; $i ++ ) {
                     ] );
                 }
 
+                function last_saved( $value, $option ) {
+                    if ( $option == 'wpcbm_settings' ) {
+                        $value['_last_saved']    = current_time( 'timestamp' );
+                        $value['_last_saved_by'] = get_current_user_id();
+                    }
+
+                    return $value;
+                }
+
                 function admin_menu() {
                     add_submenu_page( 'wpclever', esc_html__( 'WPC Badge Management', 'wpc-badge-management' ), esc_html__( 'Badge Management', 'wpc-badge-management' ), 'manage_options', 'wpclever-wpcbm', [
                             $this,
@@ -2445,7 +2456,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                     <table class="form-table">
                                         <tr>
                                             <th>
-                                                <?php esc_html_e( 'Icon Libraries', 'wpc-badge-management' ); ?>
+                                                <?php esc_html_e( 'Icon libraries', 'wpc-badge-management' ); ?>
                                             </th>
                                             <td>
                                                 <ul>
@@ -2572,7 +2583,16 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                         </tr>
                                         <tr class="submit">
                                             <th colspan="2">
-                                                <?php settings_fields( 'wpcbm_settings' ); ?><?php submit_button(); ?>
+                                                <div class="wpclever_submit">
+                                                    <?php
+                                                    settings_fields( 'wpcbm_settings' );
+                                                    submit_button( '', 'primary', 'submit', false );
+
+                                                    if ( function_exists( 'wpc_last_saved' ) ) {
+                                                        wpc_last_saved( self::get_settings() );
+                                                    }
+                                                    ?>
+                                                </div>
                                                 <a style="display: none;" class="wpclever_export"
                                                    data-key="wpcbm_settings"
                                                    data-name="settings"
