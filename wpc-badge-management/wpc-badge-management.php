@@ -3,7 +3,7 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.1.6
+Version: 3.1.7
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.9
 WC requires at least: 3.0
-WC tested up to: 10.6
+WC tested up to: 10.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.6' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.7' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -1431,7 +1431,7 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                                         <option value="outofstock" <?php selected( $apply, 'outofstock' ); ?>><?php esc_html_e( 'Out of stock', 'wpc-badge-management' ); ?></option>
                                         <option value="backorder" <?php selected( $apply, 'backorder' ); ?>><?php esc_html_e( 'On backorder', 'wpc-badge-management' ); ?></option>
                                         <?php
-                                        $taxonomies = get_object_taxonomies( 'product', 'objects' ); //$taxonomies = get_taxonomies( [ 'object_type' => [ 'product' ] ], 'objects' );
+                                        $taxonomies = get_object_taxonomies( 'product', 'objects' ); 
 
                                         foreach ( $taxonomies as $taxonomy ) {
                                             echo '<option value="' . esc_attr( $taxonomy->name ) . '" ' . ( $apply === $taxonomy->name ? 'selected' : '' ) . '>' . esc_html( $taxonomy->label ) . '</option>';
@@ -2828,7 +2828,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
                                 <option value="stock" <?php selected( $apply, 'stock' ); ?>><?php esc_html_e( 'Stock quantity', 'wpc-badge-management' ); ?></option>
                                 <option value="release" <?php selected( $apply, 'release' ); ?>><?php esc_html_e( 'New release (days)', 'wpc-badge-management' ); ?></option>
                                 <?php
-                                $taxonomies = get_object_taxonomies( 'product', 'objects' ); //$taxonomies = get_taxonomies( [ 'object_type' => [ 'product' ] ], 'objects' );
+                                $taxonomies = get_object_taxonomies( 'product', 'objects' ); 
 
                                 foreach ( $taxonomies as $taxonomy ) {
                                     echo '<option value="' . esc_attr( $taxonomy->name ) . '" ' . ( $apply === $taxonomy->name ? 'selected' : '' ) . '>' . esc_html( $taxonomy->label ) . '</option>';

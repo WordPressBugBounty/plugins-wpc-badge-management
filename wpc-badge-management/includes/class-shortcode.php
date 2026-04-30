@@ -95,7 +95,7 @@ if ( ! class_exists( 'WPCleverWpcbm_Shortcode' ) ) {
 				$product = wc_get_product( $attrs['id'] );
 			}
 
-			$text       = apply_filters( 'wpcbm_shortcode_best_seller_text', $attrs['text'] );
+			$text       = esc_html( apply_filters( 'wpcbm_shortcode_best_seller_text', $attrs['text'] ) );
 			$taxonomies = apply_filters( 'wpcbm_shortcode_best_seller_taxonomies', [
 				'product_cat',
 				'product_tag',
@@ -138,7 +138,7 @@ if ( ! class_exists( 'WPCleverWpcbm_Shortcode' ) ) {
 								$query->the_post();
 
 								if ( get_the_ID() === $product_id ) {
-									$output = sprintf( $text, $top, '<a href="' . get_term_link( $term->term_id, $attrs['in'] ) . '">' . $term->name . '</a>' );
+									$output = sprintf( $text, (int) $top, '<a href="' . esc_url( get_term_link( $term->term_id, $attrs['in'] ) ) . '">' . esc_html( $term->name ) . '</a>' );
 									break;
 								}
 
