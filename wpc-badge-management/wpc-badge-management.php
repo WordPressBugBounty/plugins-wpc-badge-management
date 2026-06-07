@@ -3,23 +3,23 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.1.7
+Version: 3.1.8
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.9
+Tested up to: 7.0
 WC requires at least: 3.0
-WC tested up to: 10.7
+WC tested up to: 10.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.7' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.8' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -28,12 +28,14 @@ defined( 'ABSPATH' ) || exit;
 ! defined( 'WPCBM_REVIEWS' ) && define( 'WPCBM_REVIEWS', 'https://wordpress.org/support/plugin/wpc-badge-management/reviews/' );
 ! defined( 'WPCBM_CHANGELOG' ) && define( 'WPCBM_CHANGELOG', 'https://wordpress.org/plugins/wpc-badge-management/#developers' );
 ! defined( 'WPCBM_DISCUSSION' ) && define( 'WPCBM_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-badge-management' );
-! defined( 'WPC_URI' ) && define( 'WPC_URI', WPCBM_URI );
 
-include 'includes/log/wpc-log.php';
-include 'includes/dashboard/wpc-dashboard.php';
-include 'includes/kit/wpc-kit.php';
-include 'includes/hpos.php';
+// WPC Core
+require_once __DIR__ . '/includes/wpc-core/wpc-core.php';
+wpc_core_register( [
+	'file'    => __FILE__,
+	'version' => WPCBM_VERSION,
+	'prefix'  => 'wpcbm',
+] );
 
 if ( ! function_exists( 'wpcbm_init' ) ) {
     add_action( 'plugins_loaded', 'wpcbm_init', 11 );
@@ -165,8 +167,6 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                 }
 
                 function init() {
-                    // load text-domain
-                    load_plugin_textdomain( 'wpc-badge-management', false, basename( WPCBM_DIR ) . '/languages/' );
 
                     // register post type
                     $labels = [
