@@ -3,8 +3,8 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, badge, label
 Tested up to: 7.0
-Version: 3.1.8
-Stable tag: 3.1.8
+Version: 3.1.9
+Stable tag: 3.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ Each global badge can be configured with a group of applicable objects:
 4. Go to WP-admin > Product Badges to add as many badges as you want
 
 == Changelog ==
+
+= 3.1.9 =
+* Fixed: Minor CSS/JS issues in the backend
+* Updated: Compatible with WP 7.0 & Woo 10.9
 
 = 3.1.8 =
 * Updated: Optimized the code

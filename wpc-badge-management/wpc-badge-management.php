@@ -3,23 +3,23 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.1.8
+Version: 3.1.9
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
 Domain Path: /languages/
 Requires Plugins: woocommerce
-Requires at least: 4.0
+Requires at least: 5.9
 Tested up to: 7.0
 WC requires at least: 3.0
-WC tested up to: 10.8
+WC tested up to: 10.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.8' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.9' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
@@ -424,15 +424,15 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
                 function group_save_fields( $term_id ) {
                     if ( isset( $_POST['position_archive'] ) ) {
-                        update_term_meta( $term_id, 'position_archive', sanitize_text_field( $_POST['position_archive'] ) );
+                        update_term_meta( $term_id, 'position_archive', sanitize_text_field( wp_unslash( $_POST['position_archive'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['position_single'] ) ) {
-                        update_term_meta( $term_id, 'position_single', sanitize_text_field( $_POST['position_single'] ) );
+                        update_term_meta( $term_id, 'position_single', sanitize_text_field( wp_unslash( $_POST['position_single'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['position_quickview'] ) ) {
-                        update_term_meta( $term_id, 'position_quickview', sanitize_text_field( $_POST['position_quickview'] ) );
+                        update_term_meta( $term_id, 'position_quickview', sanitize_text_field( wp_unslash( $_POST['position_quickview'] ?? '' ) ) );
                     }
                 }
 
@@ -1879,19 +1879,19 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
 
                 function badge_save_fields( $post_id ) {
                     if ( isset( $_POST['wpcbm_position'] ) ) {
-                        update_post_meta( $post_id, 'position', sanitize_text_field( $_POST['wpcbm_position'] ) );
+                        update_post_meta( $post_id, 'position', sanitize_text_field( wp_unslash( $_POST['wpcbm_position'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_style'] ) ) {
-                        update_post_meta( $post_id, 'style', sanitize_text_field( $_POST['wpcbm_style'] ) );
+                        update_post_meta( $post_id, 'style', sanitize_text_field( wp_unslash( $_POST['wpcbm_style'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_text'] ) ) {
-                        update_post_meta( $post_id, 'text', sanitize_text_field( htmlentities( wp_kses_post( $_POST['wpcbm_text'] ) ) ) );
+                        update_post_meta( $post_id, 'text', sanitize_text_field( htmlentities( wp_kses_post( wp_unslash( $_POST['wpcbm_text'] ?? '' ) ) ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                     }
 
                     if ( isset( $_POST['wpcbm_link'] ) ) {
-                        update_post_meta( $post_id, 'link', sanitize_url( $_POST['wpcbm_link'] ) );
+                        update_post_meta( $post_id, 'link', sanitize_url( wp_unslash( $_POST['wpcbm_link'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_link_blank'] ) ) {
@@ -1901,77 +1901,77 @@ if ( ! function_exists( 'wpcbm_init' ) ) {
                     }
 
                     if ( isset( $_POST['wpcbm_tooltip'] ) ) {
-                        update_post_meta( $post_id, 'tooltip', sanitize_text_field( $_POST['wpcbm_tooltip'] ) );
+                        update_post_meta( $post_id, 'tooltip', sanitize_text_field( wp_unslash( $_POST['wpcbm_tooltip'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_tooltip_position'] ) ) {
-                        update_post_meta( $post_id, 'tooltip_position', sanitize_text_field( $_POST['wpcbm_tooltip_position'] ) );
+                        update_post_meta( $post_id, 'tooltip_position', sanitize_text_field( wp_unslash( $_POST['wpcbm_tooltip_position'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_extra_class'] ) ) {
-                        update_post_meta( $post_id, 'extra_class', sanitize_text_field( $_POST['wpcbm_extra_class'] ) );
+                        update_post_meta( $post_id, 'extra_class', sanitize_text_field( wp_unslash( $_POST['wpcbm_extra_class'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_order'] ) ) {
-                        update_post_meta( $post_id, 'order', sanitize_text_field( $_POST['wpcbm_order'] ) );
+                        update_post_meta( $post_id, 'order', sanitize_text_field( wp_unslash( $_POST['wpcbm_order'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_background_color'] ) ) {
-                        update_post_meta( $post_id, 'background_color', sanitize_text_field( $_POST['wpcbm_background_color'] ) );
+                        update_post_meta( $post_id, 'background_color', sanitize_text_field( wp_unslash( $_POST['wpcbm_background_color'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_border_color'] ) ) {
-                        update_post_meta( $post_id, 'border_color', sanitize_text_field( $_POST['wpcbm_border_color'] ) );
+                        update_post_meta( $post_id, 'border_color', sanitize_text_field( wp_unslash( $_POST['wpcbm_border_color'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_text_color'] ) ) {
-                        update_post_meta( $post_id, 'text_color', sanitize_text_field( $_POST['wpcbm_text_color'] ) );
+                        update_post_meta( $post_id, 'text_color', sanitize_text_field( wp_unslash( $_POST['wpcbm_text_color'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_box_shadow'] ) ) {
-                        update_post_meta( $post_id, 'box_shadow', sanitize_text_field( $_POST['wpcbm_box_shadow'] ) );
+                        update_post_meta( $post_id, 'box_shadow', sanitize_text_field( wp_unslash( $_POST['wpcbm_box_shadow'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_apply'] ) ) {
-                        update_post_meta( $post_id, 'apply', sanitize_text_field( $_POST['wpcbm_apply'] ) );
+                        update_post_meta( $post_id, 'apply', sanitize_text_field( wp_unslash( $_POST['wpcbm_apply'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_new'] ) ) {
-                        update_post_meta( $post_id, 'new', sanitize_text_field( $_POST['wpcbm_new'] ) );
+                        update_post_meta( $post_id, 'new', sanitize_text_field( wp_unslash( $_POST['wpcbm_new'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_categories'] ) ) {
-                        update_post_meta( $post_id, 'categories', array_map( 'sanitize_text_field', $_POST['wpcbm_categories'] ) );
+                        update_post_meta( $post_id, 'categories', array_map( 'sanitize_text_field', wp_unslash( $_POST['wpcbm_categories'] ?? [] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                     }
 
                     if ( isset( $_POST['wpcbm_tags'] ) ) {
-                        update_post_meta( $post_id, 'tags', sanitize_text_field( $_POST['wpcbm_tags'] ) );
+                        update_post_meta( $post_id, 'tags', sanitize_text_field( wp_unslash( $_POST['wpcbm_tags'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_image'] ) ) {
-                        update_post_meta( $post_id, 'image', sanitize_text_field( $_POST['wpcbm_image'] ) );
+                        update_post_meta( $post_id, 'image', sanitize_text_field( wp_unslash( $_POST['wpcbm_image'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_products'] ) ) {
-                        update_post_meta( $post_id, 'products', self::sanitize_array( $_POST['wpcbm_products'] ) );
+                        update_post_meta( $post_id, 'products', self::sanitize_array( wp_unslash( $_POST['wpcbm_products'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_terms'] ) ) {
-                        update_post_meta( $post_id, 'terms', self::sanitize_array( $_POST['wpcbm_terms'] ) );
+                        update_post_meta( $post_id, 'terms', self::sanitize_array( wp_unslash( $_POST['wpcbm_terms'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_roles'] ) ) {
-                        update_post_meta( $post_id, 'roles', self::sanitize_array( $_POST['wpcbm_roles'] ) );
+                        update_post_meta( $post_id, 'roles', self::sanitize_array( wp_unslash( $_POST['wpcbm_roles'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_timer'] ) ) {
-                        update_post_meta( $post_id, 'timer', self::sanitize_array( $_POST['wpcbm_timer'] ) );
+                        update_post_meta( $post_id, 'timer', self::sanitize_array( wp_unslash( $_POST['wpcbm_timer'] ?? '' ) ) );
                     } else {
                         delete_post_meta( $post_id, 'timer' );
                     }
 
                     if ( isset( $_POST['wpcbm_conditionals'] ) ) {
-                        update_post_meta( $post_id, 'conditionals', self::sanitize_array( $_POST['wpcbm_conditionals'] ) );
+                        update_post_meta( $post_id, 'conditionals', self::sanitize_array( wp_unslash( $_POST['wpcbm_conditionals'] ?? '' ) ) );
                     }
                 }
 
@@ -2158,7 +2158,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
                 }
 
                 function ajax_add_time() {
-                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wpcbm-security' ) ) {
+                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['nonce'] ) ), 'wpcbm-security' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
@@ -2257,25 +2257,25 @@ for ( $i = 1; $i < 13; $i ++ ) {
                     }
 
                     // wpcdpk
-                    wp_enqueue_style( 'wpcdpk', WPCBM_URI . 'assets/libs/wpcdpk/css/datepicker.css' );
+                    wp_enqueue_style( 'wpcdpk', WPCBM_URI . 'assets/libs/wpcdpk/css/datepicker.css', [], WPCBM_VERSION );
                     wp_enqueue_script( 'wpcdpk', WPCBM_URI . 'assets/libs/wpcdpk/js/datepicker.js', [ 'jquery' ], WPCBM_VERSION, true );
 
                     // icon
                     $icon_libs = (array) self::get_setting( 'icon_libs', [] );
 
                     if ( in_array( 'fontawesome', $icon_libs ) ) {
-                        wp_enqueue_style( 'fontawesome', WPCBM_URI . 'assets/libs/fontawesome/css/all.css' );
+                        wp_enqueue_style( 'fontawesome', WPCBM_URI . 'assets/libs/fontawesome/css/all.css', [], WPCBM_VERSION );
                     }
 
                     if ( in_array( 'feathericon', $icon_libs ) ) {
-                        wp_enqueue_style( 'feathericon', WPCBM_URI . 'assets/libs/feathericon/css/feathericon.css' );
+                        wp_enqueue_style( 'feathericon', WPCBM_URI . 'assets/libs/feathericon/css/feathericon.css', [], WPCBM_VERSION );
                     }
 
                     if ( in_array( 'ionicons', $icon_libs ) ) {
-                        wp_enqueue_style( 'ionicons', WPCBM_URI . 'assets/libs/ionicons/css/ionicons.css' );
+                        wp_enqueue_style( 'ionicons', WPCBM_URI . 'assets/libs/ionicons/css/ionicons.css', [], WPCBM_VERSION );
                     }
 
-                    wp_enqueue_style( 'hint', WPCBM_URI . 'assets/css/hint.css' );
+                    wp_enqueue_style( 'hint', WPCBM_URI . 'assets/css/hint.css', [], WPCBM_VERSION );
 
                     wp_enqueue_style( 'wp-color-picker' );
                     wp_register_script( 'wp-color-picker-alpha', WPCBM_URI . 'assets/js/wp-color-picker-alpha.min.js', [ 'wp-color-picker' ], WPCBM_VERSION );
@@ -2303,18 +2303,18 @@ for ( $i = 1; $i < 13; $i ++ ) {
                     $icon_libs = (array) self::get_setting( 'icon_libs', [] );
 
                     if ( in_array( 'fontawesome', $icon_libs ) ) {
-                        wp_enqueue_style( 'fontawesome', WPCBM_URI . 'assets/libs/fontawesome/css/all.css' );
+                        wp_enqueue_style( 'fontawesome', WPCBM_URI . 'assets/libs/fontawesome/css/all.css', [], WPCBM_VERSION );
                     }
 
                     if ( in_array( 'feathericon', $icon_libs ) ) {
-                        wp_enqueue_style( 'feathericon', WPCBM_URI . 'assets/libs/feathericon/css/feathericon.css' );
+                        wp_enqueue_style( 'feathericon', WPCBM_URI . 'assets/libs/feathericon/css/feathericon.css', [], WPCBM_VERSION );
                     }
 
                     if ( in_array( 'ionicons', $icon_libs ) ) {
-                        wp_enqueue_style( 'ionicons', WPCBM_URI . 'assets/libs/ionicons/css/ionicons.css' );
+                        wp_enqueue_style( 'ionicons', WPCBM_URI . 'assets/libs/ionicons/css/ionicons.css', [], WPCBM_VERSION );
                     }
 
-                    wp_enqueue_style( 'hint', WPCBM_URI . 'assets/css/hint.css' );
+                    wp_enqueue_style( 'hint', WPCBM_URI . 'assets/css/hint.css', [], WPCBM_VERSION );
                     wp_enqueue_style( 'wpcbm-frontend', WPCBM_URI . 'assets/css/frontend.css', [], WPCBM_VERSION );
                     wp_enqueue_script( 'wpcbm-frontend', WPCBM_URI . 'assets/js/frontend.js', [ 'jquery', ], WPCBM_VERSION, true );
                     wp_enqueue_style( 'wpcbm-style', WPCBM_URI . 'assets/css/style.css', [], WPCBM_VERSION );
@@ -2381,7 +2381,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
 
                 function admin_menu_content() {
                     add_thickbox();
-                    $active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
+                    $active_tab = sanitize_key( wp_unslash( $_GET['tab'] ?? 'settings' ) );
                     ?>
                     <div class="wpclever_settings_page wrap">
                         <div class="wpclever_settings_page_header">
@@ -2406,7 +2406,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
                             </div>
                         </div>
                         <h2></h2>
-                        <?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
+                        <?php if ( isset( $_GET['settings-updated'] ) && sanitize_text_field( wp_unslash( $_GET['settings-updated'] ?? '' ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
                             <div class="notice notice-success is-dismissible">
                                 <p><?php esc_html_e( 'Settings updated.', 'wpc-badge-management' ); ?></p>
                             </div>
@@ -2721,22 +2721,22 @@ for ( $i = 1; $i < 13; $i ++ ) {
 
                 function product_save_fields( $post_id ) {
                     if ( isset( $_POST['wpcbm_type'] ) ) {
-                        update_post_meta( $post_id, 'wpcbm_type', sanitize_text_field( $_POST['wpcbm_type'] ) );
+                        update_post_meta( $post_id, 'wpcbm_type', sanitize_text_field( wp_unslash( $_POST['wpcbm_type'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['wpcbm_badges'] ) ) {
-                        update_post_meta( $post_id, 'wpcbm_badges', array_map( 'sanitize_text_field', $_POST['wpcbm_badges'] ) );
+                        update_post_meta( $post_id, 'wpcbm_badges', array_map( 'sanitize_text_field', wp_unslash( $_POST['wpcbm_badges'] ?? [] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
                     }
                 }
 
                 function ajax_activate() {
-                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wpcbm-security' ) || ! current_user_can( 'manage_options' ) ) {
+                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['nonce'] ) ), 'wpcbm-security' ) || ! current_user_can( 'manage_options' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
                     if ( isset( $_POST['id'], $_POST['act'] ) ) {
-                        $id  = sanitize_text_field( $_POST['id'] );
-                        $act = sanitize_text_field( $_POST['act'] );
+                        $id  = sanitize_text_field( wp_unslash( $_POST['id'] ?? '' ) );
+                        $act = sanitize_text_field( wp_unslash( $_POST['act'] ?? '' ) );
 
                         update_post_meta( $id, 'wpcbm_activate', ( $act === 'activate' ? 'on' : 'off' ) );
                         echo $act;
@@ -2746,7 +2746,7 @@ for ( $i = 1; $i < 13; $i ++ ) {
                 }
 
                 function ajax_add_conditional() {
-                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'wpcbm-security' ) ) {
+                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['nonce'] ) ), 'wpcbm-security' ) ) {
                         die( 'Permissions check failed!' );
                     }
                     self::conditional();
@@ -2754,14 +2754,14 @@ for ( $i = 1; $i < 13; $i ++ ) {
                 }
 
                 function ajax_search_badges() {
-                    if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'wpcbm-security' ) ) {
+                    if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_REQUEST['nonce'] ) ), 'wpcbm-security' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
                     $return         = [];
                     $search_results = new WP_Query( [
                             'post_type'           => 'wpc_product_badge',
-                            's'                   => sanitize_text_field( $_REQUEST['q'] ?? '' ),
+                            's'                   => sanitize_text_field( wp_unslash( $_REQUEST['q'] ?? '' ) ),
                             'post_status'         => 'publish',
                             'ignore_sticky_posts' => 1,
                             'posts_per_page'      => 500
@@ -2778,18 +2778,18 @@ for ( $i = 1; $i < 13; $i ++ ) {
                 }
 
                 function ajax_search_term() {
-                    if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'wpcbm-security' ) ) {
+                    if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_REQUEST['nonce'] ) ), 'wpcbm-security' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
                     $return = [];
                     $args   = [
-                            'taxonomy'   => sanitize_text_field( $_REQUEST['taxonomy'] ?? '' ),
+                            'taxonomy'   => sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ?? '' ) ),
                             'orderby'    => 'id',
                             'order'      => 'ASC',
                             'hide_empty' => false,
                             'fields'     => 'all',
-                            'name__like' => sanitize_text_field( $_REQUEST['q'] ?? '' ),
+                            'name__like' => sanitize_text_field( wp_unslash( $_REQUEST['q'] ?? '' ) ),
                     ];
 
                     $terms = get_terms( $args );
