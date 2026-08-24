@@ -2,9 +2,9 @@
 Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, badge, label
-Tested up to: 7.0
-Version: 3.1.9
-Stable tag: 3.1.9
+Tested up to: 7.1
+Version: 3.2.0
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,16 @@ Each global badge can be configured with a group of applicable objects:
 [WPC Smart Quick View](https://wordpress.org/plugins/woo-smart-quick-view/ "WPC Smart Quick View"): Badges can be configured to be placed on many positions on the Quick View popup.
 [WPC Countdown Timer](https://wordpress.org/plugins/wpc-countdown-timer/ "WPC Countdown Timer"): With this plugin, users can generate short-codes to insert a counting timer in badges.
 
+= Need more features? =
+
+Please try other plugins from us:
+
+- [WPC Smart Compare](https://wordpress.org/plugins/woo-smart-compare/ "WPC Smart Compare")
+- [WPC Smart Quick View](https://wordpress.org/plugins/woo-smart-quick-view/ "WPC Smart Quick View")
+- [WPC Smart Wishlist](https://wordpress.org/plugins/woo-smart-wishlist/ "WPC Smart Wishlist")
+- [WPC Smart Notification](https://wordpress.org/plugins/wpc-smart-notification/ "WPC Smart Notification")
+- [WPC AJAX Add to Cart](https://wordpress.org/plugins/wpc-ajax-add-to-cart/ "WPC AJAX Add to Cart")
+
 == Installation ==
 
 1. Please make sure that you installed WooCommerce
@@ -89,6 +99,10 @@ Each global badge can be configured with a group of applicable objects:
 4. Go to WP-admin > Product Badges to add as many badges as you want
 
 == Changelog ==
+
+= 3.2.0 =
+* Updated: Optimized the code
+* Updated: Compatible with WP 7.1 & Woo 11.0
 
 = 3.1.9 =
 * Fixed: Minor CSS/JS issues in the backend

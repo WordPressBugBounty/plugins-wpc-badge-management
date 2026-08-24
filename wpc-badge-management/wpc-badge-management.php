@@ -3,23 +3,23 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.1.9
+Version: 3.2.0
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 5.9
-Tested up to: 7.0
+Tested up to: 7.1
 WC requires at least: 3.0
-WC tested up to: 10.9
+WC tested up to: 11.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.1.9' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.2.0' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
