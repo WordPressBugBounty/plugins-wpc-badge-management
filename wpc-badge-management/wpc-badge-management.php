@@ -3,28 +3,27 @@
 Plugin Name: WPC Badge Management for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Badge Management is a powerful plugin that simplifies badge management in online shops.
-Version: 3.2.0
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-badge-management
 Domain Path: /languages/
 Requires Plugins: woocommerce
+Version: 3.2.1
 Requires at least: 5.9
-Tested up to: 7.1
 WC requires at least: 3.0
-WC tested up to: 11.0
+WC tested up to: 11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.2.0' );
+! defined( 'WPCBM_VERSION' ) && define( 'WPCBM_VERSION', '3.2.1' );
 ! defined( 'WPCBM_LITE' ) && define( 'WPCBM_LITE', __FILE__ );
 ! defined( 'WPCBM_FILE' ) && define( 'WPCBM_FILE', __FILE__ );
 ! defined( 'WPCBM_URI' ) && define( 'WPCBM_URI', plugin_dir_url( __FILE__ ) );
 ! defined( 'WPCBM_DIR' ) && define( 'WPCBM_DIR', plugin_dir_path( __FILE__ ) );
-! defined( 'WPCBM_SUPPORT' ) && define( 'WPCBM_SUPPORT', 'https://wpclever.net/support?utm_source=support&utm_medium=wpcbm&utm_campaign=wporg' );
+! defined( 'WPCBM_SUPPORT' ) && define( 'WPCBM_SUPPORT', 'https://wpclever.net/support/?utm_source=support&utm_medium=wpcbm&utm_campaign=wporg' );
 ! defined( 'WPCBM_REVIEWS' ) && define( 'WPCBM_REVIEWS', 'https://wordpress.org/support/plugin/wpc-badge-management/reviews/' );
 ! defined( 'WPCBM_CHANGELOG' ) && define( 'WPCBM_CHANGELOG', 'https://wordpress.org/plugins/wpc-badge-management/#developers' );
 ! defined( 'WPCBM_DISCUSSION' ) && define( 'WPCBM_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-badge-management' );
